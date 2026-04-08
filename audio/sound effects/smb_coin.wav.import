@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://doa8348j68hfw"
+path="res://.godot/imported/smb_coin.wav-f9bac27c5eaad65e33b6293be0ff31cd.sample"
+
+[deps]
+
+source_file="res://audio/sound effects/smb_coin.wav"
+dest_files=["res://.godot/imported/smb_coin.wav-f9bac27c5eaad65e33b6293be0ff31cd.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

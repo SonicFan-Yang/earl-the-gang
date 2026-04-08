@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bm60uiqe8y7j1"
+path="res://.godot/imported/helicopter.ogg-af720bbf8d155f2028a5c652b7ef9ae9.oggvorbisstr"
+
+[deps]
+
+source_file="res://audio/sound effects/main/player/helicopter.ogg"
+dest_files=["res://.godot/imported/helicopter.ogg-af720bbf8d155f2028a5c652b7ef9ae9.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=1.64
+bpm=0.0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,211 @@
+[gd_scene format=3 uid="uid://dow5ppynr08l"]
+
+[ext_resource type="Script" uid="uid://crig4v2p4lefk" path="res://scripts/main/title_screen.gd" id="1_hn2w6"]
+[ext_resource type="Theme" uid="uid://fnlbtxvynoxf" path="res://resourses/font/hudfont.tres" id="1_xsp5y"]
+[ext_resource type="Script" uid="uid://b06ufv5um0nmi" path="res://scenes/misc/remap_window.gd" id="3_6kkck"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hn2w6"]
+load_path = "res://.godot/imported/earlspin.png-fbb241db4bca89fd792a9e5d1b0cc92f.ctex"
+
+[sub_resource type="Animation" id="Animation_6kkck"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("spin:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_mr1mw"]
+resource_name = "spin"
+length = 1.0000125
+loop_mode = 1
+step = 0.125
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("spin:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8453e"]
+_data = {
+&"RESET": SubResource("Animation_6kkck"),
+&"spin": SubResource("Animation_mr1mw")
+}
+
+[node name="title_screen" type="Node2D" unique_id=709485519]
+script = ExtResource("1_hn2w6")
+
+[node name="text" type="RichTextLabel" parent="." unique_id=1139380294]
+offset_left = -13.0
+offset_top = 144.0
+offset_right = 321.0
+offset_bottom = 235.0
+rotation = -0.24085544
+theme = ExtResource("1_xsp5y")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "Earl Game"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="." unique_id=40083037]
+offset_right = 48.0
+offset_bottom = 94.0
+text = "has lotsa bugs"
+
+[node name="spin" type="Sprite2D" parent="." unique_id=1501909021]
+position = Vector2(104.00001, 49.999996)
+rotation = 0.21424092
+scale = Vector2(7.0789475, 5.75)
+texture = SubResource("CompressedTexture2D_hn2w6")
+hframes = 8
+
+[node name="anim" type="AnimationPlayer" parent="." unique_id=1329624552]
+libraries/ = SubResource("AnimationLibrary_8453e")
+autoplay = &"spin"
+speed_scale = 2.0
+
+[node name="remap_button" type="Button" parent="." unique_id=912714847]
+offset_left = 129.0
+offset_top = 204.0
+offset_right = 253.0
+offset_bottom = 235.0
+toggle_mode = true
+text = "remap buttons"
+
+[node name="remap_txt" type="RichTextLabel" parent="." unique_id=911581915]
+visible = false
+offset_left = 5.0
+offset_top = 178.0
+offset_right = 251.0
+offset_bottom = 233.0
+text = "remap [keu]"
+
+[node name="Window" type="Window" parent="." unique_id=352809597]
+oversampling_override = 1.0
+title = "Remap"
+position = Vector2i(6, 36)
+size = Vector2i(243, 124)
+visible = false
+script = ExtResource("3_6kkck")
+
+[node name="up" type="Button" parent="Window" unique_id=1772452216]
+offset_top = 1.0
+offset_right = 38.0
+offset_bottom = 32.0
+focus_neighbor_top = NodePath("../right")
+focus_neighbor_right = NodePath("../jump")
+focus_neighbor_bottom = NodePath("../down")
+toggle_mode = true
+text = "up="
+
+[node name="down" type="Button" parent="Window" unique_id=222117258]
+offset_top = 31.0
+offset_right = 61.0
+offset_bottom = 62.0
+focus_neighbor_top = NodePath("../up")
+focus_neighbor_right = NodePath("../attack")
+focus_neighbor_bottom = NodePath("../left")
+toggle_mode = true
+text = "down="
+
+[node name="left" type="Button" parent="Window" unique_id=1938993511]
+offset_top = 62.0
+offset_right = 43.0
+offset_bottom = 93.0
+focus_neighbor_top = NodePath("../down")
+focus_neighbor_right = NodePath("../run")
+focus_neighbor_bottom = NodePath("../right")
+toggle_mode = true
+text = "left="
+
+[node name="right" type="Button" parent="Window" unique_id=1783597896]
+offset_top = 93.0
+offset_right = 54.0
+offset_bottom = 124.0
+focus_neighbor_top = NodePath("../left")
+focus_neighbor_right = NodePath("../key_pad")
+focus_neighbor_bottom = NodePath("../up")
+toggle_mode = true
+text = "right="
+
+[node name="jump" type="Button" parent="Window" unique_id=1687421835]
+offset_left = 120.0
+offset_right = 178.0
+offset_bottom = 31.0
+focus_neighbor_left = NodePath("../up")
+focus_neighbor_top = NodePath("../key_pad")
+focus_neighbor_bottom = NodePath("../attack")
+toggle_mode = true
+text = "jump="
+
+[node name="attack" type="Button" parent="Window" unique_id=876018278]
+offset_left = 121.0
+offset_top = 31.0
+offset_right = 187.0
+offset_bottom = 62.0
+focus_neighbor_left = NodePath("../down")
+focus_neighbor_top = NodePath("../jump")
+focus_neighbor_bottom = NodePath("../run")
+toggle_mode = true
+text = "attack="
+
+[node name="run" type="Button" parent="Window" unique_id=1600200475]
+offset_left = 121.0
+offset_top = 62.0
+offset_right = 166.0
+offset_bottom = 93.0
+focus_neighbor_left = NodePath("../left")
+focus_neighbor_top = NodePath("../attack")
+focus_neighbor_bottom = NodePath("../key_pad")
+toggle_mode = true
+text = "run="
+
+[node name="key_pad" type="CheckButton" parent="Window" unique_id=379256409]
+offset_left = 118.0
+offset_top = 93.0
+offset_right = 240.0
+offset_bottom = 124.0
+focus_neighbor_left = NodePath("../right")
+focus_neighbor_top = NodePath("../run")
+focus_neighbor_bottom = NodePath("../jump")
+text = "Keyboard"
+alignment = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=441273934]
+offset_left = 4.0
+offset_top = 213.0
+offset_right = 107.0
+offset_bottom = 257.0
+text = "demo 1"
+
+[node name="Button" type="Button" parent="." unique_id=1344475964]
+offset_left = 182.0
+offset_top = 155.0
+offset_right = 247.0
+offset_bottom = 198.0
+text = "start"
+
+[connection signal="button_up" from="remap_button" to="." method="_on_remap_button_button_up"]
+[connection signal="toggled" from="remap_button" to="." method="_on_remap_button_toggled"]
+[connection signal="toggled" from="Window/up" to="Window" method="_on_up_toggled"]
+[connection signal="toggled" from="Window/down" to="Window" method="_on_down_toggled"]
+[connection signal="toggled" from="Window/left" to="Window" method="_on_left_toggled"]
+[connection signal="toggled" from="Window/right" to="Window" method="_on_right_toggled"]
+[connection signal="toggled" from="Window/jump" to="Window" method="_on_jump_toggled"]
+[connection signal="toggled" from="Window/attack" to="Window" method="_on_attack_toggled"]
+[connection signal="toggled" from="Window/run" to="Window" method="_on_run_toggled"]
+[connection signal="toggled" from="Window/key_pad" to="Window" method="_on_key_pad_toggled"]
+[connection signal="button_up" from="Button" to="." method="_on_button_button_up"]

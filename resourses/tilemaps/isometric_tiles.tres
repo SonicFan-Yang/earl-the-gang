@@ -1,0 +1,17 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://co5k5ci1x36ff"]
+
+[ext_resource type="Texture2D" uid="uid://c2en31xhgfnfp" path="res://sprites/tilesets/test.png" id="1_5f554"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5hore"]
+texture = ExtResource("1_5f554")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+
+[resource]
+tile_shape = 1
+tile_layout = 5
+tile_size = Vector2i(16, 8)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_5hore")

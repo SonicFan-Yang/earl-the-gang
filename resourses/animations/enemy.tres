@@ -1,0 +1,68 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://cbwhub28qxxpl"]
+
+[ext_resource type="Texture2D" uid="uid://ruyd4crdw34w" path="res://sprites/enemy/brown_enemies.png" id="1_vdpo8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t8fus"]
+atlas = ExtResource("1_vdpo8")
+region = Rect2(34, 17, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_onc0l"]
+atlas = ExtResource("1_vdpo8")
+region = Rect2(0, 17, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iklhe"]
+atlas = ExtResource("1_vdpo8")
+region = Rect2(17, 17, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_crd6e"]
+atlas = ExtResource("1_vdpo8")
+region = Rect2(34, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6oq5x"]
+atlas = ExtResource("1_vdpo8")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bggws"]
+atlas = ExtResource("1_vdpo8")
+region = Rect2(17, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t8fus")
+}],
+"loop": true,
+"name": &"buzzy_dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_onc0l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iklhe")
+}],
+"loop": true,
+"name": &"buzzy_walk",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_crd6e")
+}],
+"loop": true,
+"name": &"goomba_dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6oq5x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bggws")
+}],
+"loop": true,
+"name": &"goomba_walk",
+"speed": 5.0
+}]

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bcesoen3fisjq"]
+
+[ext_resource type="Script" uid="uid://b5nou7heacsp0" path="res://scripts/custom_nodes/tile_map_layer_with_better_one_way.gd" id="1_sp7e0"]
+
+[node name="TileMapLayerWithBetterOneWay" type="TileMapLayer" unique_id=1057269669]
+script = ExtResource("1_sp7e0")

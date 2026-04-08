@@ -1,0 +1,27 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://d28trchxpbji2"]
+
+[ext_resource type="Texture2D" uid="uid://c2en31xhgfnfp" path="res://sprites/tilesets/test.png" id="1_6815j"]
+[ext_resource type="Texture2D" uid="uid://d1148teberfp7" path="res://sprites/tilesets/troll/trolldoor.png" id="1_i2d7j"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ercw6"]
+atlas = ExtResource("1_6815j")
+region = Rect2(0, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ercw6")
+}],
+"loop": true,
+"name": &"test",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_i2d7j")
+}],
+"loop": true,
+"name": &"troll",
+"speed": 5.0
+}]

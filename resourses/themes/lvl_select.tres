@@ -1,0 +1,17 @@
+[gd_resource type="Theme" format=3 uid="uid://c6suywhjjvvfg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l71jn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r16e4"]
+bg_color = Color(1, 1, 1, 0.4745098)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l71jn"]
+bg_color = Color(0, 0, 0, 0.67058825)
+
+[resource]
+Button/colors/font_color = Color(0.49878508, 0.49878383, 0.49878424, 1)
+MenuButton/colors/font_color = Color(0.3403393, 0.34033933, 0.3403393, 1)
+MenuButton/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+MenuButton/styles/focus = SubResource("StyleBoxEmpty_l71jn")
+PopupMenu/styles/hover = SubResource("StyleBoxFlat_r16e4")
+PopupMenu/styles/panel = SubResource("StyleBoxFlat_l71jn")

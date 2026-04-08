@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://cge35bv7h3ken"]
+
+[ext_resource type="Script" uid="uid://bq3ldbku4ud2d" path="res://scripts/objects/door.gd" id="1_uw3m6"]
+[ext_resource type="SpriteFrames" uid="uid://d28trchxpbji2" path="res://resourses/animations/doors.tres" id="2_uw3m6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w0irj"]
+size = Vector2(16, 27)
+
+[node name="door" type="Area2D" unique_id=1499449952]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("1_uw3m6")
+
+[node name="sprite" type="AnimatedSprite2D" parent="." unique_id=65345436]
+sprite_frames = ExtResource("2_uw3m6")
+animation = &"troll"
+
+[node name="collision" type="CollisionShape2D" parent="." unique_id=535020174]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_w0irj")
+debug_color = Color(0, 1, 0, 0.41960785)

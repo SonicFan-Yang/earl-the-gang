@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dxdn1wdon84uq"
+path="res://.godot/imported/playerjumpsmall.mp3-13e45d47d3bf21ee699f863051fea587.mp3str"
+
+[deps]
+
+source_file="res://audio/sound effects/playerjumpsmall.mp3"
+dest_files=["res://.godot/imported/playerjumpsmall.mp3-13e45d47d3bf21ee699f863051fea587.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

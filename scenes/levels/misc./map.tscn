@@ -1,0 +1,85 @@
+[gd_scene load_steps=11 format=4 uid="uid://lhdyshwbg68v"]
+
+[ext_resource type="Texture2D" uid="uid://ea4mp537bowu" path="res://sprites/tilesets/Game Boy GBC - Super Mario Bros Deluxe - World Maps.png" id="1_3n671"]
+[ext_resource type="Script" uid="uid://dntyja2gvipur" path="res://scripts/main/map/map.gd" id="1_24q43"]
+[ext_resource type="TileSet" uid="uid://fntp1nlp20ct" path="res://resourses/tilemaps/map.tres" id="3_h2855"]
+[ext_resource type="PackedScene" uid="uid://dt3r2bg2jyvv7" path="res://scenes/main/player_map.tscn" id="4_quh0n"]
+[ext_resource type="PackedScene" uid="uid://1aauxpbm3dus" path="res://scenes/gui/dev_hud.tscn" id="5_cyxlx"]
+[ext_resource type="PackedScene" uid="uid://d2qsrrlwmxf3x" path="res://scenes/main/map/map_tile.tscn" id="6_kc75a"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b1pim"]
+atlas = ExtResource("1_3n671")
+region = Rect2(170, 108, 160, 65)
+
+[sub_resource type="Curve2D" id="Curve2D_6ifq5"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -152, 8, 0, 0, 0, 0, -136, 8)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_ns658"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -136, 8, 0, 0, 0, 0, -92, 8, 0, 0, 0, 0, -82, -8, 0, 0, 0, 0, -56, -8)
+}
+point_count = 4
+
+[sub_resource type="Curve2D" id="Curve2D_dfmwe"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -56, -8, 0, 0, 0, 0, -40, -8)
+}
+point_count = 2
+
+[node name="Map" type="Node2D" node_paths=PackedStringArray("follow", "player")]
+script = ExtResource("1_24q43")
+follow = NodePath("Paths/path/follow")
+player = NodePath("player_map")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.490196)
+scale = Vector2(2, 2)
+texture = SubResource("AtlasTexture_b1pim")
+
+[node name="ground" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAD4//z/AAAFAAEAAAD5//z/AAADAAEAAAD6//3/AAACAAMAAAD7//3/AAAGAAMAAAD8//3/AAACAAMAAAD9//3/AAADAAMAAAD9//7/AAAPAAIAAAD+////AAAHAAQAAAD9////AAALAAQAAAD7/wIAAAALAAQAAAD+/wAAAAAPAAIAAAACAAEAAAALAAAAAAAAAAEAAAALAAEAAAABAAEAAAAMAAIAAAD8////AAAMAAIAAAD3/wAAAAAMAAIAAAD2/wAAAAAIAAAAAAD6////AAAJAAAAAAD7////AAAIAAAAAAD4/wAAAAAIAAAAAAD5/wAAAAAIAAAAAAD6/wAAAAAJAAEAAAD7/wEAAAAJAAAAAAD8/wEAAAAIAAAAAAD9/wEAAAAIAAAAAAD9/wMAAAAPAAIAAAD+/wMAAAAPAAUAAAD+/wIAAAAPAAMAAAACAAIAAAAPAAMAAAAAAAMAAAANAAUAAAABAAMAAAAOAAUAAAACAAMAAAAPAAUAAAAAAAIAAAANAAMAAAABAAIAAAAOAAMAAAAAAAAAAAAEAAQAAAABAAAAAAAFAAQAAAACAAAAAAADAAQAAAD6//7/AAAOAAIAAAD7//7/AAAOAAIAAAD8//7/AAAOAAIAAAD3//3/AAAOAAIAAAD8/wIAAAAOAAIAAAD8/wMAAAAOAAIAAAD7/wMAAAAOAAIAAAD6/wMAAAAOAAIAAAD9/wIAAAAOAAIAAAD4/wEAAAAOAAIAAAAFAAIAAAAOAAIAAAAFAAMAAAAOAAIAAAAGAAEAAAAOAAIAAAAIAP//AAAOAAIAAAAJAP//AAAOAAIAAAAJAP7/AAAOAAIAAAAIAP7/AAAOAAIAAAAHAP7/AAAOAAIAAAAGAP7/AAANAAIAAAAGAP3/AAAAAAMAAAAHAP3/AAABAAMAAAAIAP3/AAABAAEAAAAJAP3/AAABAAEAAAAFAP//AAAAAAQAAAAEAAAAAAAAAAQAAAAFAAAAAAAJAAAAAAAFAAEAAAAJAAEAAAAEAAEAAAALAAEAAAAGAP//AAAMAAAAAAAGAAAAAAAMAAEAAAAHAP//AAANAAAAAAAHAAAAAAANAAEAAAAIAAAAAAAIAAAAAAAJAAAAAAAIAAAAAAAHAAEAAAAIAAIAAAAHAAIAAAAIAAMAAAAHAAMAAAAIAAQAAAAIAAEAAAAJAAIAAAAIAAIAAAAJAAMAAAAIAAMAAAAJAAQAAAAGAAIAAAAKAAIAAAAGAAMAAAAKAAMAAAAJAAIAAAALAAIAAAAJAAMAAAAKAAMAAAAJAAEAAAAKAAIAAAAEAAIAAAANAAIAAAAEAAMAAAANAAMAAAD2/wEAAAAIAAIAAAD2/wIAAAAIAAMAAAD2/wMAAAAIAAQAAAD3/wEAAAAJAAIAAAD3/wIAAAAJAAMAAAD3/wMAAAAJAAQAAAD4//3/AAAIAAIAAAD4//7/AAAIAAMAAAD4////AAAIAAQAAAD5//3/AAAJAAIAAAD5//7/AAAJAAMAAAD5////AAAJAAQAAAD4/wIAAAAKAAIAAAD4/wMAAAAKAAMAAAD2//7/AAAKAAIAAAD2////AAAKAAMAAAD3//7/AAAKAAIAAAD3////AAAKAAMAAAD5/wIAAAALAAIAAAD5/wMAAAAKAAMAAAD6/wEAAAAKAAIAAAD6/wIAAAAKAAMAAAD5/wEAAAAKAAIAAAD7/wAAAAALAAMAAAD8/wAAAAALAAMAAAD9/wAAAAALAAMAAAD2//3/AAAGAAEAAAD3//z/AAAEAAEAAAD+//7/AAAKAAQAAAD///7/AAAKAAQAAAAAAP7/AAAKAAQAAAABAP7/AAAKAAQAAAACAP7/AAAKAAQAAAADAP7/AAAKAAQAAAAEAP7/AAAKAAQAAAAFAP7/AAAKAAQAAAD/////AAADAAAAAAAAAP//AAADAAAAAAABAP//AAADAAAAAAACAP//AAADAAAAAAADAP//AAADAAAAAAAEAP//AAADAAAAAAADAAAAAAADAAAAAAADAAIAAAADAAAAAAADAAMAAAADAAAAAAD//wAAAAADAAAAAAD//wIAAAADAAAAAAD//wMAAAADAAAAAAD2//z/AAACAAAAAAD+//z/AAACAAAAAAD///3/AAACAAAAAAD///z/AAACAAAAAAAAAPz/AAACAAAAAAABAPz/AAACAAAAAAACAPz/AAACAAAAAAACAP3/AAACAAAAAAADAP3/AAACAAAAAAAEAP3/AAACAAAAAAAEAPz/AAACAAAAAAADAPz/AAACAAAAAAAFAPz/AAACAAAAAAAIAPz/AAACAAAAAAAJAPz/AAACAAAAAAAGAPz/AAAAAAAAAAAHAPz/AAABAAAAAAAFAP3/AAAAAAAAAAAAAP3/AAAAAAAAAAABAP3/AAABAAAAAAD+//3/AAABAAAAAAD6//z/AAAAAAAAAAD9//z/AAABAAAAAAD8//z/AAAHAAAAAAD7//z/AAAHAAAAAAD+/wEAAAALAAAAAAD//wEAAAAMAAQAAAADAAEAAAAMAAQAAAA=")
+tile_set = ExtResource("3_h2855")
+
+[node name="Interactible Tiles" type="Node2D" parent="."]
+
+[node name="map_tile" parent="Interactible Tiles" instance=ExtResource("6_kc75a")]
+position = Vector2(-136, 8)
+
+[node name="map_tile3" parent="Interactible Tiles" instance=ExtResource("6_kc75a")]
+position = Vector2(-40, -8)
+title = ""
+TILE = 3
+
+[node name="map_tile2" parent="Interactible Tiles" instance=ExtResource("6_kc75a")]
+position = Vector2(-56, -8)
+
+[node name="Paths" type="Node2D" parent="."]
+
+[node name="path" type="Path2D" parent="Paths"]
+curve = SubResource("Curve2D_6ifq5")
+
+[node name="follow" type="PathFollow2D" parent="Paths/path"]
+position = Vector2(-152, 8)
+rotates = false
+loop = false
+
+[node name="remote" type="RemoteTransform2D" parent="Paths/path/follow"]
+remote_path = NodePath("../../../../player_map")
+
+[node name="path2" type="Path2D" parent="Paths"]
+curve = SubResource("Curve2D_ns658")
+
+[node name="path3" type="Path2D" parent="Paths"]
+curve = SubResource("Curve2D_dfmwe")
+
+[node name="player_map" parent="." node_paths=PackedStringArray("path") instance=ExtResource("4_quh0n")]
+position = Vector2(-152, 8)
+path = NodePath("../Paths/path/follow")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-32, 0)
+
+[node name="DevHud" parent="." instance=ExtResource("5_cyxlx")]

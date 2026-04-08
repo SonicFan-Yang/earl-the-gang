@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://gifodoum0sxc"
+path="res://.godot/imported/enemy_hit.mp3-bef931503a07d2e5e2df67314c72e58b.mp3str"
+
+[deps]
+
+source_file="res://audio/sound effects/main/player/enemy_hit.mp3"
+dest_files=["res://.godot/imported/enemy_hit.mp3-bef931503a07d2e5e2df67314c72e58b.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

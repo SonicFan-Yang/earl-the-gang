@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://3kq6jmhcx6r"]
+
+[ext_resource type="Script" uid="uid://df5o7xdbx7yuj" path="res://scripts/enemy/goomba.gd" id="1_lfe86"]
+[ext_resource type="SpriteFrames" uid="uid://cbwhub28qxxpl" path="res://resourses/animations/enemy.tres" id="2_t78td"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6ql3u"]
+size = Vector2(14, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4vqe3"]
+size = Vector2(14, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ohju"]
+size = Vector2(16, 2)
+
+[node name="goomba" type="CharacterBody2D" unique_id=418141374 node_paths=PackedStringArray("collision")]
+collision_layer = 4
+script = ExtResource("1_lfe86")
+flip_sprite_to_direction = false
+collision = NodePath("collision")
+
+[node name="sprite" type="AnimatedSprite2D" parent="." unique_id=1203780351]
+sprite_frames = ExtResource("2_t78td")
+animation = &"goomba_walk"
+
+[node name="collision" type="CollisionShape2D" parent="." unique_id=1935168073]
+position = Vector2(0, 6)
+shape = SubResource("RectangleShape2D_6ql3u")
+
+[node name="hitbox" type="Area2D" parent="." unique_id=645968405]
+collision_layer = 4
+collision_mask = 3
+
+[node name="collision" type="CollisionShape2D" parent="hitbox" unique_id=477993144]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_4vqe3")
+debug_color = Color(1, 0, 0, 0.419608)
+
+[node name="wall" type="Area2D" parent="." unique_id=1675822398]
+collision_layer = 4
+
+[node name="collision" type="CollisionShape2D" parent="wall" unique_id=527680979]
+shape = SubResource("RectangleShape2D_3ohju")
+debug_color = Color(0, 1, 0, 0.419608)
+
+[node name="audio" type="AudioStreamPlayer2D" parent="." unique_id=881610863]
+
+[connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="body_entered" from="wall" to="." method="_on_wall_body_entered"]

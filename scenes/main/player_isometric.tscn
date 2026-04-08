@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://cllmfiaa3noi4"]
+
+[ext_resource type="Script" uid="uid://bps80dpw6madg" path="res://player_isometric.gd" id="1_cllts"]
+[ext_resource type="Texture2D" uid="uid://eigroa2yy6qc" path="res://sprites/player/mario.png" id="2_06k8m"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ymfn"]
+atlas = ExtResource("2_06k8m")
+region = Rect2(0, 0, 16, 16)
+
+[node name="player_isometric" type="CharacterBody2D"]
+script = ExtResource("1_cllts")
+
+[node name="sprite" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_1ymfn")

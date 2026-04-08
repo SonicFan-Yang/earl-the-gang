@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://brj4whb4r2cv2"]
+
+[ext_resource type="Script" uid="uid://bc7jmdjxewn66" path="res://scripts/main/tiles/brick_block.gd" id="1_q8qyb"]
+[ext_resource type="Texture2D" uid="uid://bhlxujg81g4mf" path="res://sprites/tilesets/objects_smb1.png" id="2_8xdh1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xf42d"]
+atlas = ExtResource("2_8xdh1")
+region = Rect2(154, 0, 16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_reatm"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c0jnj"]
+size = Vector2(16, 16)
+
+[node name="brick_block" type="AnimatableBody2D" unique_id=2130394528]
+collision_mask = 2
+script = ExtResource("1_q8qyb")
+breakable = 1
+
+[node name="sprite" type="Sprite2D" parent="." unique_id=89160224]
+texture = SubResource("AtlasTexture_xf42d")
+
+[node name="collision" type="CollisionShape2D" parent="." unique_id=1539432744]
+shape = SubResource("RectangleShape2D_reatm")
+debug_color = Color(0.8435192, 0.7909371, 1, 0.41960785)
+
+[node name="hitbox" type="Area2D" parent="." unique_id=1877539158]
+collision_layer = 8
+collision_mask = 2
+
+[node name="collision" type="CollisionShape2D" parent="hitbox" unique_id=1731624932]
+shape = SubResource("RectangleShape2D_c0jnj")
+debug_color = Color(0.58297396, 0.8759412, 1, 0.41960785)
+
+[connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]

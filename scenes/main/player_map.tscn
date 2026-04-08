@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://dt3r2bg2jyvv7"]
+
+[ext_resource type="Script" uid="uid://boxy21gwiqnsc" path="res://scripts/main/player/player_map.gd" id="1_gobbf"]
+[ext_resource type="SpriteFrames" uid="uid://d1w3j0vxv8eas" path="res://resourses/animations/player.tres" id="1_jy26t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vsrlf"]
+size = Vector2(8, 16)
+
+[node name="player_map" type="Node2D" unique_id=406814252]
+position = Vector2(-2, 0)
+script = ExtResource("1_gobbf")
+
+[node name="sprite" type="AnimatedSprite2D" parent="." unique_id=668763907]
+sprite_frames = ExtResource("1_jy26t")
+animation = &"idle_0"
+
+[node name="hitbox" type="Area2D" parent="." unique_id=1018339309]
+
+[node name="hitbox" type="CollisionShape2D" parent="hitbox" unique_id=795486026]
+shape = SubResource("RectangleShape2D_vsrlf")
+debug_color = Color(1, 0, 0, 0.286275)
+
+[connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="area_exited" from="hitbox" to="." method="_on_hitbox_area_exited"]

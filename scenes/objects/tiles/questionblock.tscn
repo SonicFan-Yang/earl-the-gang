@@ -1,0 +1,68 @@
+[gd_scene load_steps=12 format=3 uid="uid://bxgf5jef0g53a"]
+
+[ext_resource type="Shader" uid="uid://cuwpd183nycjv" path="res://resourses/shaders/PaletteSwapRow.gdshader" id="1_vx2xi"]
+[ext_resource type="Texture2D" uid="uid://dc5l8rb4a3dro" path="res://sprites/palette/QuestionMark&CoinPalette.png" id="2_eiqmi"]
+[ext_resource type="Texture2D" uid="uid://bhlum4jrtdbet" path="res://sprites/tilesets/interactables/NES - Super Mario Bros - Brick Blocks.png" id="3_ydfun"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d7wd2"]
+resource_local_to_scene = true
+shader = ExtResource("1_vx2xi")
+shader_parameter/amount = 3
+shader_parameter/palRows = 5
+shader_parameter/row = 2
+shader_parameter/approximation = 0.0
+shader_parameter/paletteTexture = ExtResource("2_eiqmi")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pxfvo"]
+atlas = ExtResource("3_ydfun")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h1ce5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pxfvo")
+}],
+"loop": true,
+"name": &"questionblock",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_vx2xi"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_eiqmi"]
+resource_name = "shine"
+step = 0.0333333
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ydfun"]
+_data = {
+&"RESET": SubResource("Animation_vx2xi"),
+&"shine": SubResource("Animation_eiqmi")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vx2xi"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eiqmi"]
+size = Vector2(16, 1)
+
+[node name="questionblock" type="AnimatableBody2D" unique_id=381391402]
+
+[node name="sprite" type="AnimatedSprite2D" parent="." unique_id=653760910]
+material = SubResource("ShaderMaterial_d7wd2")
+sprite_frames = SubResource("SpriteFrames_h1ce5")
+animation = &"questionblock"
+
+[node name="animation" type="AnimationPlayer" parent="." unique_id=1646670047]
+libraries/ = SubResource("AnimationLibrary_ydfun")
+
+[node name="collision" type="CollisionShape2D" parent="." unique_id=1017134337]
+shape = SubResource("RectangleShape2D_vx2xi")
+
+[node name="hitbox" type="Area2D" parent="." unique_id=2001836368]
+
+[node name="hitbox" type="CollisionShape2D" parent="hitbox" unique_id=489173495]
+position = Vector2(0, 7.5)
+shape = SubResource("RectangleShape2D_eiqmi")
+debug_color = Color(1, 0, 0, 0.41960785)

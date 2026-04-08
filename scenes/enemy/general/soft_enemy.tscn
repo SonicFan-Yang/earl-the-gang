@@ -1,0 +1,119 @@
+[gd_scene format=3 uid="uid://b617laeeu8mex"]
+
+[ext_resource type="Texture2D" uid="uid://jntqay2hfq0i" path="res://sprites/enemy/basic/spike_enemy_sad.png" id="1_j55x4"]
+[ext_resource type="Script" uid="uid://dnourfd7bi37l" path="res://scripts/enemy/enemy.gd" id="1_nmv2d"]
+
+[sub_resource type="Animation" id="Animation_dy7ps"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_qhtqy"]
+resource_name = "death"
+length = 0.10001
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
+[sub_resource type="Animation" id="Animation_nmv2d"]
+resource_name = "walk"
+length = 0.500025
+loop_mode = 1
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dy7ps"]
+_data = {
+&"RESET": SubResource("Animation_dy7ps"),
+&"death": SubResource("Animation_qhtqy"),
+&"walk": SubResource("Animation_nmv2d")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nmv2d"]
+size = Vector2(16, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qhtqy"]
+size = Vector2(14, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dy7ps"]
+size = Vector2(14, 14)
+
+[node name="soft_enemy" type="CharacterBody2D" unique_id=1624660428 node_paths=PackedStringArray("sprite", "anim", "collision", "cliff_detectors")]
+collision_layer = 4
+script = ExtResource("1_nmv2d")
+walks_off_edges = false
+hurts_player = false
+sprite = NodePath("sprite")
+anim = NodePath("anim")
+collision = NodePath("collision")
+cliff_detectors = [NodePath("cliff_l"), NodePath("cliff_r")]
+
+[node name="sprite" type="Sprite2D" parent="." unique_id=1319996658]
+texture = ExtResource("1_j55x4")
+hframes = 3
+
+[node name="anim" type="AnimationPlayer" parent="." unique_id=1231586837]
+libraries/ = SubResource("AnimationLibrary_dy7ps")
+autoplay = &"walk"
+
+[node name="wall" type="Area2D" parent="." unique_id=54067186]
+
+[node name="hitbox" type="CollisionShape2D" parent="wall" unique_id=506405052]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_nmv2d")
+debug_color = Color(0, 1, 0, 0.41960785)
+
+[node name="collision" type="CollisionShape2D" parent="." unique_id=294793983]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_qhtqy")
+
+[node name="hitbox" type="Area2D" parent="." unique_id=956477642]
+collision_layer = 4
+collision_mask = 2
+
+[node name="hitbox" type="CollisionShape2D" parent="hitbox" unique_id=864590981]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_dy7ps")
+debug_color = Color(1, 0, 0, 0.41960785)
+
+[node name="cliff_l" type="RayCast2D" parent="." unique_id=1906018043]
+position = Vector2(-7, 8)
+target_position = Vector2(0, 2)
+
+[node name="cliff_r" type="RayCast2D" parent="." unique_id=136968842]
+position = Vector2(7, 8)
+target_position = Vector2(0, 2)
+
+[connection signal="body_entered" from="wall" to="." method="_on_wall_body_entered"]
+[connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]

@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://ibly1xtt3kq7"]
+
+[ext_resource type="Script" uid="uid://drrh4f2mpdu3d" path="res://scripts/levels/misc./level_sel.gd" id="1_h0j4b"]
+[ext_resource type="SpriteFrames" uid="uid://d1w3j0vxv8eas" path="res://resourses/animations/player.tres" id="2_24i04"]
+[ext_resource type="Theme" uid="uid://c6suywhjjvvfg" path="res://resourses/themes/lvl_select.tres" id="4_6obrm"]
+
+[node name="level_sel" type="Node2D" unique_id=1124371528]
+script = ExtResource("1_h0j4b")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1806819067]
+offset_right = 256.0
+offset_bottom = 240.0
+color = Color(0, 0, 0, 1)
+
+[node name="Node2D" type="Node2D" parent="ColorRect" unique_id=1465098146]
+position = Vector2(128, 115)
+
+[node name="Parallax2D" type="Parallax2D" parent="ColorRect/Node2D" unique_id=1328412245]
+z_index = -1
+repeat_size = Vector2(24, 15)
+autoscroll = Vector2(30, 30)
+repeat_times = 20
+follow_viewport = false
+
+[node name="ColorRect2" type="AnimatedSprite2D" parent="ColorRect/Node2D/Parallax2D" unique_id=707559396]
+z_index = 1
+sprite_frames = ExtResource("2_24i04")
+animation = &"spin"
+
+[node name="ColorRect2" type="ColorRect" parent="." unique_id=1348328438]
+offset_left = -5.0
+offset_top = -9.0
+offset_right = 284.0
+offset_bottom = 249.0
+color = Color(0, 0, 0, 0.53333336)
+
+[node name="ColorRect3" type="ColorRect" parent="." unique_id=1990707882]
+offset_left = -5.0
+offset_top = -9.0
+offset_right = 268.0
+offset_bottom = 24.0
+color = Color(0, 0, 0, 0.53333336)
+
+[node name="misc" type="MenuButton" parent="." unique_id=875046308]
+z_index = 2
+offset_top = -5.0
+offset_right = 48.0
+offset_bottom = 26.0
+focus_neighbor_right = NodePath("../lv1")
+focus_next = NodePath("../lv1")
+focus_previous = NodePath("../lv1")
+focus_mode = 2
+theme = ExtResource("4_6obrm")
+text = "misc."
+item_count = 2
+popup/item_0/text = "test"
+popup/item_0/id = 0
+popup/item_1/text = "test_player"
+popup/item_1/id = 1
+
+[node name="lv1" type="MenuButton" parent="." unique_id=1522736149]
+z_index = 2
+offset_left = 44.0
+offset_top = -5.0
+offset_right = 98.0
+offset_bottom = 26.0
+focus_neighbor_left = NodePath("../misc")
+focus_next = NodePath("../misc")
+focus_previous = NodePath("../misc")
+focus_mode = 2
+theme = ExtResource("4_6obrm")
+text = "floor1"
+item_count = 1
+popup/item_0/text = "toptorial"
+popup/item_0/id = 0
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1983623718]
+anchor_mode = 0

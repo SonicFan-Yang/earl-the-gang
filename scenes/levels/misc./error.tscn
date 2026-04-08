@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://dke5p2qgd15vd"]
+
+[ext_resource type="Texture2D" uid="uid://c6gaqcm1l31y6" path="res://sprites/misc/levels/misc/error/error.png" id="1_uiivo"]
+
+[node name="error" type="Node2D" unique_id=159250156]
+
+[node name="CanvasModulate2" type="ColorRect" parent="." unique_id=428449296]
+offset_left = -139.0
+offset_top = -133.0
+offset_right = 139.0
+offset_bottom = 135.0
+color = Color(0, 0, 0.15294118, 1)
+
+[node name="CanvasModulate" type="ColorRect" parent="." unique_id=445763039]
+visible = false
+offset_left = -139.0
+offset_top = -133.0
+offset_right = 139.0
+offset_bottom = 135.0
+color = Color(0, 0, 0.15294118, 0.61960787)
+
+[node name="Parallax2D4" type="Parallax2D" parent="." unique_id=333519314]
+repeat_size = Vector2(54, 22)
+autoscroll = Vector2(97, -48)
+repeat_times = 25
+
+[node name="errortext" type="RichTextLabel" parent="Parallax2D4" unique_id=1781821839]
+offset_left = 79.0
+offset_top = 101.0
+offset_right = 138.0
+offset_bottom = 141.0
+theme_override_colors/default_color = Color(0.661141, 2.4907663e-06, 5.7756904e-07, 1)
+text = "error."
+
+[node name="Parallax2D3" type="Parallax2D" parent="." unique_id=898480749]
+repeat_size = Vector2(173, 240)
+autoscroll = Vector2(-100, -20)
+repeat_times = 7
+
+[node name="Error" type="Sprite2D" parent="Parallax2D3" unique_id=2126633071]
+self_modulate = Color(0.28607252, 0.28607234, 0.2860724, 1)
+position = Vector2(66, -65)
+texture = ExtResource("1_uiivo")
+
+[node name="Parallax2D2" type="Parallax2D" parent="." unique_id=1487465438]
+repeat_size = Vector2(54, 22)
+autoscroll = Vector2(-60, -90)
+repeat_times = 25
+
+[node name="errortext" type="RichTextLabel" parent="Parallax2D2" unique_id=1096011909]
+offset_left = -21.0
+offset_top = 94.0
+offset_right = 38.0
+offset_bottom = 134.0
+theme_override_colors/default_color = Color(1, 0, 0, 1)
+text = "error."
+
+[node name="Parallax2D" type="Parallax2D" parent="." unique_id=395398996]
+repeat_size = Vector2(136, 240)
+autoscroll = Vector2(90, 60)
+repeat_times = 7
+
+[node name="Error" type="Sprite2D" parent="Parallax2D" unique_id=1565049203]
+self_modulate = Color(0.446777, 0.44677705, 0.44677705, 1)
+texture = ExtResource("1_uiivo")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=2060051112]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=18500597]
+offset_left = -20.0
+offset_top = 44.0
+offset_right = 41.0
+offset_bottom = 67.0
+theme_override_colors/default_color = Color(1, 0, 0, 1)
+text = "error"

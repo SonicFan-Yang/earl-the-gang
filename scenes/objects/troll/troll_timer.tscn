@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://cwm7yi0bpmgop"]
+
+[ext_resource type="Script" uid="uid://csp5xgg6axwvf" path="res://scripts/objects/troll/troll_timer.gd" id="1_jvbq4"]
+[ext_resource type="Theme" uid="uid://fnlbtxvynoxf" path="res://resourses/font/hudfont.tres" id="2_rdxa7"]
+
+[node name="troll_timer" type="CanvasLayer" unique_id=116871735]
+script = ExtResource("1_jvbq4")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=75501946]
+clip_contents = false
+anchors_preset = -1
+anchor_left = -0.1875
+anchor_top = 1.0
+anchor_right = -0.1875
+anchor_bottom = 1.0
+offset_top = -59.0
+offset_right = 133.0
+offset_bottom = -4.0
+grow_vertical = 0
+theme = ExtResource("2_rdxa7")
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+text = "[shake rate=100.0 level=20 connected=1][wave amp=50.0 freq=5.0 connected=0][color=ff0000]0:00[/color]"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Timer" type="Timer" parent="." unique_id=2096187732]
+wait_time = 120.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

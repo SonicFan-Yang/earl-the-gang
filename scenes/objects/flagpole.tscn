@@ -1,0 +1,59 @@
+[gd_scene load_steps=7 format=4 uid="uid://djsprl3r4iblh"]
+
+[ext_resource type="TileSet" uid="uid://dri7kpnqmxbrw" path="res://resourses/tilemaps/smb1.tres" id="1_0abri"]
+[ext_resource type="Texture2D" uid="uid://bhlxujg81g4mf" path="res://sprites/tilesets/objects_smb1.png" id="2_ianeh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8017e"]
+atlas = ExtResource("2_ianeh")
+region = Rect2(68, 80, 16, 16)
+
+[sub_resource type="Animation" id="Animation_avdf7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("flag:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1, -152)]
+}
+
+[sub_resource type="Animation" id="Animation_8ssa0"]
+resource_name = "flag_down"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("flag:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-1, -152), Vector2(-1, -24)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5s1f0"]
+_data = {
+&"RESET": SubResource("Animation_avdf7"),
+&"flag_down": SubResource("Animation_8ssa0")
+}
+
+[node name="flagpole" type="Node2D"]
+
+[node name="sprite" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAAAAP//AAAAAAEAAAAAAP7/AAAIAAsAAAAAAP3/AAAIAAsAAAAAAPz/AAAIAAsAAAAAAPr/AAAIAAsAAAAAAPv/AAAIAAsAAAAAAPn/AAAIAAsAAAAAAPj/AAAIAAsAAAAAAPf/AAAIAAsAAAAAAPb/AAAIAAsAAAAAAPX/AAAIAAoAAAA=")
+tile_set = ExtResource("1_0abri")
+
+[node name="flag" type="Sprite2D" parent="."]
+position = Vector2(-1, -152)
+texture = SubResource("AtlasTexture_8017e")
+
+[node name="animation" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_5s1f0")
+}

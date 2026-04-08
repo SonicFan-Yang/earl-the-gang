@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://dj6ui38adt24c"]
+
+[ext_resource type="Script" uid="uid://df0ag8oosc650" path="res://scripts/objects/troll/troll_guy.gd" id="1_186pw"]
+[ext_resource type="Texture2D" uid="uid://ceajolm8gf8u4" path="res://sprites/concepts/prerendered.png" id="2_186pw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uta33"]
+size = Vector2(100, 100)
+
+[node name="troll_guy" type="Area2D" unique_id=1530179359]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_186pw")
+
+[node name="sprite" type="Sprite2D" parent="." unique_id=1081494760]
+position = Vector2(4.999996, -9.536743e-07)
+scale = Vector2(0.10752688, 0.23809524)
+texture = ExtResource("2_186pw")
+
+[node name="col" type="CollisionShape2D" parent="." unique_id=1961625344]
+position = Vector2(5, 0)
+shape = SubResource("RectangleShape2D_uta33")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
