@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dicejf7vfrmny"]
+
+[ext_resource type="Script" uid="uid://cqu0jpahd086i" path="res://scenes/misc/block_additives/block_additives/block_bounce.gd" id="1_md1r2"]
+
+[node name="BlockBounce" type="Node" unique_id=1020957802]
+script = ExtResource("1_md1r2")
+
+[node name="bounce" type="Timer" parent="." unique_id=350906354]
+wait_time = 0.214
+one_shot = true

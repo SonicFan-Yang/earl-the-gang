@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ddvvbj64xr8v7"
+path="res://.godot/imported/bonk-cartoon.mp3-7f57bb06cf5f7c096fbfa10e5365a916.mp3str"
+
+[deps]
+
+source_file="res://audio/sound effects/enemy/bonk-cartoon.mp3"
+dest_files=["res://.godot/imported/bonk-cartoon.mp3-7f57bb06cf5f7c096fbfa10e5365a916.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

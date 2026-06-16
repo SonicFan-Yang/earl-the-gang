@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bkkjfn20snsxa"
+path="res://.godot/imported/clown_music.ogg-249dc0cb116fe1e1c7f0249e9d9f2d93.oggvorbisstr"
+
+[deps]
+
+source_file="res://audio/sound effects/main/player/clown_music.ogg"
+dest_files=["res://.godot/imported/clown_music.ogg-249dc0cb116fe1e1c7f0249e9d9f2d93.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

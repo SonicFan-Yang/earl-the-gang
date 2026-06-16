@@ -1,0 +1,96 @@
+[gd_scene format=3 uid="uid://pvdbh6f0u61"]
+
+[ext_resource type="Texture2D" uid="uid://by4t85wrqyj4s" path="res://sprites/tilesets/interactables/NES - Super Mario Bros - Brick Crumbs 2.png" id="1_6evi1"]
+[ext_resource type="Script" uid="uid://mv5r6thyv3wg" path="res://scripts/objects/blocks/block_debris.gd" id="1_rewet"]
+[ext_resource type="Texture2D" uid="uid://dboq0rua1f0mn" path="res://sprites/tilesets/interactables/NES - Super Mario Bros - Brick Crumbs 4.png" id="2_rewet"]
+[ext_resource type="Texture2D" uid="uid://76eiyotn8cqr" path="res://sprites/tilesets/interactables/NES - Super Mario Bros - Brick Crumbs 3.png" id="3_dr2ju"]
+[ext_resource type="Texture2D" uid="uid://bgxvc3c8ji85r" path="res://sprites/tilesets/interactables/NES - Super Mario Bros - Brick Crumbs.png" id="4_7f5qp"]
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_jfmpr"]
+frames = 4
+speed_scale = 6.0
+frame_0/texture = ExtResource("1_6evi1")
+frame_1/texture = ExtResource("2_rewet")
+frame_1/duration = 1.0
+frame_2/texture = ExtResource("3_dr2ju")
+frame_2/duration = 1.0
+frame_3/texture = ExtResource("4_7f5qp")
+frame_3/duration = 1.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5otr3"]
+particle_flag_disable_z = true
+direction = Vector3(0.2, -1, 0)
+spread = 0.0
+flatness = 1.0
+initial_velocity_min = 250.0
+initial_velocity_max = 250.0
+gravity = Vector3(0, 430, 0)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yg0lq"]
+particle_flag_disable_z = true
+direction = Vector3(0.29, -1, 0)
+spread = 0.0
+flatness = 1.0
+initial_velocity_min = 180.0
+initial_velocity_max = 180.0
+gravity = Vector3(0, 430, 0)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_j6os4"]
+particle_flag_disable_z = true
+direction = Vector3(-0.29, -1, 0)
+spread = 0.0
+flatness = 1.0
+initial_velocity_min = 180.0
+initial_velocity_max = 180.0
+gravity = Vector3(0, 430, 0)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7u663"]
+particle_flag_disable_z = true
+direction = Vector3(-0.2, -1, 0)
+spread = 0.0
+flatness = 1.0
+initial_velocity_min = 250.0
+initial_velocity_max = 250.0
+gravity = Vector3(0, 430, 0)
+
+[node name="block_debris" type="Node2D" unique_id=1909423445 node_paths=PackedStringArray("debris_nodes")]
+script = ExtResource("1_rewet")
+starting_speed = 0.85
+debris_nodes = [NodePath("debrisRU"), NodePath("debrisRD"), NodePath("debrisLD"), NodePath("debrisLU")]
+
+[node name="debrisRU" type="GPUParticles2D" parent="." unique_id=317863895]
+amount = 1
+texture = SubResource("AnimatedTexture_jfmpr")
+lifetime = 5.0
+process_material = SubResource("ParticleProcessMaterial_5otr3")
+
+[node name="debrisRD" type="GPUParticles2D" parent="." unique_id=1344330218]
+amount = 1
+texture = SubResource("AnimatedTexture_jfmpr")
+lifetime = 5.0
+process_material = SubResource("ParticleProcessMaterial_yg0lq")
+
+[node name="debrisLD" type="GPUParticles2D" parent="." unique_id=323883783]
+amount = 1
+texture = SubResource("AnimatedTexture_jfmpr")
+lifetime = 5.0
+process_material = SubResource("ParticleProcessMaterial_j6os4")
+
+[node name="debrisLU" type="GPUParticles2D" parent="." unique_id=1647809488]
+amount = 1
+texture = SubResource("AnimatedTexture_jfmpr")
+lifetime = 5.0
+process_material = SubResource("ParticleProcessMaterial_7u663")
+
+[node name="grav_timer" type="Timer" parent="." unique_id=127545563]
+wait_time = 0.7
+one_shot = true
+autostart = true
+
+[node name="timer" type="Timer" parent="." unique_id=1024695103]
+wait_time = 5.0
+autostart = true
+
+[connection signal="finished" from="debrisLU" to="." method="_on_debris_lu_finished"]
+[connection signal="timeout" from="grav_timer" to="." method="_on_grav_timer_timeout"]
+[connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]

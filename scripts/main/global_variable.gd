@@ -32,3 +32,11 @@ var JSON_ = JSON.new()
 
 func save():
 	pass
+
+func if_pause_n_unpause(pause : bool):
+	if !pause:
+		if get_tree().paused == true:
+			get_tree().paused = false
+	if pause:
+		if get_tree().paused == false:
+			get_tree().paused = true

@@ -16,10 +16,10 @@ func _ready() -> void:
 
 func misc_input(id : int):
 	if id == 0:
-		get_tree().change_scene_to_file("res://scenes/levels/misc./test.tscn")
+		GameMaster.set_scene("res://scenes/levels/misc./test.tscn")
 	elif id == 1:
-		get_tree().change_scene_to_file("res://scenes/levels/misc./test_player.tscn")
+		GameMaster.set_scene("res://scenes/levels/misc./test_player.tscn")
 
 func lv1_input(id : int):
 	if id == 0:
-		get_tree().change_scene_to_file("res://scenes/levels/world 1/at_the_toptorial.tscn")
+		GameMaster.set_scene("res://scenes/levels/world 1/at_the_toptorial.tscn")

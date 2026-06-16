@@ -8,9 +8,12 @@ var current_state := States.Normal
 var P_GRAVITY = 26.25
 var jump_held_grav = 7.5
 var water_grav = 1
-var grav = 26.25
+var grav = 20
 var hover_grav = 26
 var wallslide_resistance = 1
+
+var max_y_speeds := [-900, 400] ##Max and min amoumt for the y velocity to be at, arranged in [min, max]
+var max_y_speeds_double_jump := [-900, 200]
 
 # Adds up to -320
 var JUMPVEL = -240
@@ -33,7 +36,7 @@ var AUTO_WALK_SPEED = 2
 var mach1speed = 20
 var mach2speed = 225
 
-var hit_velocity := Vector2(150, -200)
+var hit_velocity := Vector2(200, -200)
 
 ## Movement stuff
 
@@ -57,6 +60,7 @@ var hurt := false
 
 enum ATTACKMOVES {normhit1, normhit2, normhit3start, normhit3, airuphit, airdownhit, dashattack}
 var attackcurrent : ATTACKMOVES = ATTACKMOVES.normhit1
+
 var attacking := false:
 	set(value):
 		if value == false:
@@ -64,6 +68,7 @@ var attacking := false:
 				$attack_areas.get_child(i).set_deferred("disabled", true)
 				#print(i)
 		attacking = value
+
 var attackmax := false
 
 var dir = 0
@@ -130,6 +135,7 @@ func _physics_process(delta):
 		#print(direction)
 		
 		animation_node.animation(facing)
+		
 	elif PlayerScript.game_state == 3:
 		
 		velocity.x = AUTO_WALK_SPEED

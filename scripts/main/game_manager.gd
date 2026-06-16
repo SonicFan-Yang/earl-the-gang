@@ -9,8 +9,11 @@ var error_scene = preload("res://scenes/levels/misc./error.tscn").instantiate()
 var ysort_node = Node2D.new()
 var old_ysort_node : Node2D
 
-var player = preload("res://scenes/main/player.tscn").instantiate()
+var player : Player = preload("res://scenes/main/player.tscn").instantiate()
 var camera := Camera2D.new()
+
+signal fade_start
+signal unfade_start
 
 func _ready() -> void:
 	gamemaster = self
@@ -34,12 +37,14 @@ func set_scene(new_scene : String, delete_room : bool = true, keep_player : bool
 		var prev_scene_name := ""
 		
 		GlobalVariable.SCENE_LOADED = true
+		
+		fade_start.emit()
 		#print(sceneinitialised)
 		
 		if current_scene != error_scene:
 			current_scene = get_child(0)
 			prev_scene_name = current_scene.name
-			print(prev_scene_name)
+			#(prev_scene_name)
 		
 		if delete_room == true:
 			current_scene.name = "."
@@ -49,7 +54,12 @@ func set_scene(new_scene : String, delete_room : bool = true, keep_player : bool
 		else:
 			get_tree().root.remove_child(current_scene)
 		
-		sceneinitialised.name = prev_scene_name
+		if sceneinitialised == current_scene:
+			sceneinitialised.name = prev_scene_name
 		
+		player.modulate = Color(1.0, 1.0, 1.0, 1.0)
 		add_child(sceneinitialised)
 		move_child(sceneinitialised, 0)
+		
+		unfade_start.emit()
+		GlobalVariable.if_pause_n_unpause(false)

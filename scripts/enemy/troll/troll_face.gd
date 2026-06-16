@@ -3,7 +3,7 @@ extends CharacterBody2D
 @export var enabled := true
 @export var followimg : CharacterBody2D
 
-const SPEED = 50.0
+var SPEED = 60.0
 
 func _ready() -> void:
 	$anim.play("idle")

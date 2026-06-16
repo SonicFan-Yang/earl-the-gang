@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://ebqte6r3yx08"
+path="res://.godot/imported/bonk-cartoon.ogg-48526fb6aa6da3f99f091ca925ec359b.oggvorbisstr"
+
+[deps]
+
+source_file="res://audio/sound effects/main/player/bonk-cartoon.ogg"
+dest_files=["res://.godot/imported/bonk-cartoon.ogg-48526fb6aa6da3f99f091ca925ec359b.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

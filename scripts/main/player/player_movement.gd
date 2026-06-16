@@ -5,10 +5,17 @@ extends Node
 @onready var attacktimer := $"../attack_timer"
 
 var hover_sound_played := false
+var god_mode_initialized := false
 
 func movement(_delta):
-	if Input.is_key_pressed(KEY_G):
-		father.current_state = father.States.GodMode
+	if Input.is_action_just_pressed("god_key_activate"):
+		if !god_mode_initialized:
+			god_mode_initialized = false
+			father.current_state = father.States.GodMode
+		else:
+			god_mode_initialized = false
+			activate_god_mode(false)
+			father.current_state = father.States.Normal
 	
 	#print(father.States.keys()[father.current_state], father.velocity.x > 0)
 	if !father.current_state == father.States.GodMode:
@@ -43,10 +50,11 @@ func movement(_delta):
 			move_script()
 			
 			if Input.is_action_just_released(father.jump_key):
-			
+		
 				father.bouncemultiplier = 0
-				if father.jumpcount == 2:
-					father.jumpcount = 4
+				father.hovering = false
+				if father.jumpcount == 4:
+					father.jumpcount = 3
 				
 				if hover_sound_played == true:
 					father.audio.stop()
@@ -55,10 +63,10 @@ func movement(_delta):
 				if father.jumpcount <= 1:
 					father.P_GRAVITY = father.grav
 				
-				if father.hovering:
-					father.jumpcount = 5
+				#if father.hovering:
+					#father.jumpcount = 5
 			
-			elif not Input.is_action_pressed(father.jump_key):
+			else:
 				
 				if hover_sound_played == true:
 					father.audio.stop()
@@ -76,20 +84,20 @@ func movement(_delta):
 		elif father.current_state == father.States.Hurt:
 			
 			grav_script(4)
+			father.velocity.x = (father.hit_velocity.x * -father.facing) / 2.0
+			
 	else:
 		father.direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-		father.velocity = father.direction * 100
+		father.velocity = round(father.direction) * 100
 		
-		for node in get_children():
-			if node is CollisionShape2D:
-				node.disabled = true
-			elif node is Area2D:
-				node.monitoring = false
-				node.monitorable = false
+		if god_mode_initialized == false:
+			activate_god_mode(true)
+
 
 func move_script():
 	
 	father.direction.x = Input.get_axis("ui_left", "ui_right")
+	father.direction.y = Input.get_axis("ui_up", "ui_down")
 	#print(father.attacking)
 	
 	father.attack_areas.scale.x = father.facing
@@ -98,8 +106,9 @@ func move_script():
 		father.facing = int(father.direction.x)
 	#print((father.velocity.x >= 0 && father.direction.x == -1 || father.velocity.x <= 0 && father.direction.x == 1))
 	
-	if father.interaction_point[5].has_overlapping_bodies() && father.midair == true:
+	if wallslide_check():
 		for element in father.interaction_point[5].get_overlapping_bodies():
+			if not element.is_in_group("OneWayCollisions"):
 				father.wallsliding = true
 				father.current_state = father.States.WallSlide
 	else:
@@ -113,42 +122,9 @@ func move_script():
 
 	#print(father.dir_opposite_to_wall)
 	
-	#jump_script()
+	run_script()
 	
-	if Input.is_action_pressed(father.run_key):
-		father.skidding = false
-		if abs(father.velocity.x) >= 250:
-			
-			father.running = 2
-			father.SPEED += 100
-			father.MAX_SPEED = 300
-			father.velocity.x += father.SPEED * father.facing
-			
-		elif abs(father.velocity.x) >= 20:
-			
-			father.running = 1
-			father.SPEED = 5
-			father.MAX_SPEED = 300
-			father.velocity.x += father.SPEED * father.facing
-			
-		else:
-			
-			father.running = 0
-			father.SPEED = 2
-			father.MAX_SPEED = 200
-			father.velocity.x += father.SPEED * father.facing
-	else:
-		
-		father.SPEED = father.WALK_SPEED
-		father.MAX_SPEED = 93.75
-		father.running = 0
-		if father.direction.x != 0:
-			if father.velocity.x == 0:
-				father.velocity.x = father.direction.x * father.MIN_SPEED
-			else:
-				father.dir = father.direction.x
-				father.velocity.x += (father.direction.x * father.SPEED) * 2
-				father.skidding = false
+	#jump_script()
 			
 	if father.is_on_floor():
 		if (father.velocity.x >= 0 && father.direction.x == -1 || father.velocity.x <= 0 && father.direction.x == 1):
@@ -175,6 +151,37 @@ func move_script():
 		father.velocity.x = clamp(father.velocity.x, -father.MAX_SPEED, father.MAX_SPEED)
 
 
+func run_script():
+	if Input.is_action_pressed(father.run_key):
+		father.skidding = false
+		father.SPEED = 5.0
+		father.MAX_SPEED = 200.0
+		father.velocity.x += father.direction.x * father.SPEED
+		if abs(father.velocity.x) >= 130:
+			
+			father.running = 2
+			
+		elif abs(father.velocity.x) >= 20:
+			
+			father.running = 1
+			
+		else:
+			
+			father.running = 0
+	else:
+		
+		father.SPEED = father.WALK_SPEED
+		father.MAX_SPEED = 93.75
+		father.running = 0
+		if father.direction.x != 0:
+			if father.velocity.x == 0:
+				father.velocity.x = father.direction.x * father.MIN_SPEED
+			else:
+				father.dir = father.direction.x
+				father.velocity.x += (father.direction.x * father.SPEED) * 2
+				father.skidding = false
+
+
 func jump_script(is_walljump : bool = false):
 	
 	if Input.is_action_pressed(father.jump_key):
@@ -182,10 +189,11 @@ func jump_script(is_walljump : bool = false):
 		if Input.is_action_just_pressed(father.jump_key):
 			
 			#print(jumpcount)
-			father.bouncemultiplier = 2
-			father.jumping = true
-			father.hovering = false
-			father.swimming = false
+			if father.jumpcount != 3:
+				father.bouncemultiplier = 2
+				father.jumping = true
+				father.hovering = false
+				father.swimming = false
 			
 			if father.jumpcount <= 1:
 				father.P_GRAVITY = father.jump_held_grav
@@ -196,9 +204,9 @@ func jump_script(is_walljump : bool = false):
 						jump(father.JUMPVEL)
 						father.audio.stream = father.jump_sound_small
 					else:
-						jump(father.JUMPVEL)
-						father.velocity.x = 100 * father.dir_opposite_to_wall
-						print(100 * father.dir_opposite_to_wall)
+						jump(father.DOUBJUMPVEL)
+						father.velocity.x = 200 * father.dir_opposite_to_wall
+						#print(100 * father.dir_opposite_to_wall)
 						father.audio.stream = father.jump_sound_small
 						
 				elif father.jumpcount == 1:
@@ -211,16 +219,18 @@ func jump_script(is_walljump : bool = false):
 		
 		if father.velocity.y >= 0:
 			
-			if father.jumpcount > 2:
+			if father.jumpcount >= 2:
 				father.hovering = true
+				father.jumpcount = 4
 				father.P_GRAVITY = father.hover_grav
 				
 				if hover_sound_played == false:
 					father.audio.stream = father.hover_sound
 					father.audio.play()
 					hover_sound_played = true
-					print(hover_sound_played, father.audio.stream)
+					#print(hover_sound_played, father.audio.stream)
 			else:
+				
 				if hover_sound_played == true:
 					father.audio.stop()
 					hover_sound_played = false
@@ -231,8 +241,9 @@ func jump_script(is_walljump : bool = false):
 	elif Input.is_action_just_released(father.jump_key):
 		
 		father.bouncemultiplier = 0
-		if father.jumpcount == 2:
-			father.jumpcount = 4
+		father.hovering = false
+		if father.jumpcount == 4:
+			father.jumpcount = 3
 		
 		if hover_sound_played == true:
 			father.audio.stop()
@@ -241,8 +252,8 @@ func jump_script(is_walljump : bool = false):
 		if father.jumpcount <= 1:
 			father.P_GRAVITY = father.grav
 		
-		if father.hovering:
-			father.jumpcount = 5
+		#if father.hovering:
+			#father.jumpcount = 5
 	
 	else:
 		
@@ -250,12 +261,13 @@ func jump_script(is_walljump : bool = false):
 			father.audio.stop()
 			hover_sound_played = false
 		
-		father.hovering = false
 	
 	#print(father.velocity.y >= 0)
 
 
 func grav_script(grav_value : int = 0):
+	
+	#print(father.velocity.y)
 	
 	if not father.is_on_floor():
 		
@@ -292,7 +304,7 @@ func grav_script(grav_value : int = 0):
 		else:
 			
 			father.P_GRAVITY = father.grav
-			father.velocity.y += father.P_GRAVITY
+			father.velocity.y += father.P_GRAVITY / 2
 	else:
 		
 		if father.interaction_point[4].has_overlapping_areas():
@@ -302,7 +314,7 @@ func grav_script(grav_value : int = 0):
 						GameMaster.set_scene(GameMaster.current_scene.level_file_location + GameMaster.current_scene.InternalLevelName + element.doorid + ".tscn")
 		
 		if father.attacking:
-			if (father.attackcurrent == father.ATTACKMOVES.normhit3start) or (father.attackcurrent == father.ATTACKMOVES.normhit3):
+			if (father.attackcurrent == father.ATTACKMOVES.normhit3start) or (father.attackcurrent == father.ATTACKMOVES.normhit3) or (father.attackcurrent == father.ATTACKMOVES.dashattack):
 				if father.velocity.x == 0:
 					father.attacking = false
 					#father.audio.stop()
@@ -325,6 +337,11 @@ func grav_script(grav_value : int = 0):
 		
 		if father.anim.current_animation == "hurt":
 			father.hurt = false
+	
+	if father.jumpcount == 1:
+		father.velocity.y = clamp(father.velocity.y, father.max_y_speeds[0], father.max_y_speeds[1])
+	elif father.jumpcount == 2:
+		father.velocity.y = clamp(father.velocity.y, father.max_y_speeds_double_jump[0], father.max_y_speeds_double_jump[1])
 
 
 func attack_script():
@@ -365,6 +382,7 @@ func attack_script():
 					father.velocity = Vector2(125 * father.facing, -120)
 		else:
 			father.velocity.x = 200 * father.facing
+			father.velocity.y = father.velocity.y * 0.5
 
 
 func jump(strength):
@@ -384,26 +402,34 @@ func bounce(strength, player_control):
 
 func hit_send():
 	if father.current_state != father.States.Hurt:
+		father.hurt = true
 		get_tree().paused = true
 		await get_tree().create_timer(0.05).timeout
 		get_tree().paused = false
 		father.velocity = father.hit_velocity * Vector2(-father.facing, 1)
-		father.hurt = true
 		father.current_state = father.States.Hurt
 
 
+func wallslide_check():
+	return father.interaction_point[5].has_overlapping_bodies() && father.midair == true && not father.attacking && not father.hurt && father.is_on_wall_only()
+
+
 func wallslide_script():
-	if father.interaction_point[5].has_overlapping_bodies() && father.midair == true:
-		for element in father.interaction_point[5].get_overlapping_bodies():
-				father.current_state = father.States.WallSlide
-				father.wallsliding = true
-				if !father.jumping:
-					father.velocity.y = move_toward(father.velocity.y, 40, father.SKID_FRICTION * (father.velocity.y / 50))
-					father.wallslide_resistance = 2
-					father.jumpcount = 0
-				else:
-					father.wallslide_resistance = 4
-					father.jumpcount = 0
+	if wallslide_check():
+			for element in father.interaction_point[5].get_overlapping_bodies():
+				
+				print(element, ", ", element.is_in_group("OneWayCollisions"))
+				
+				if not element.is_in_group("OneWayCollisions"):
+					father.current_state = father.States.WallSlide
+					father.wallsliding = true
+					if !father.jumping:
+						father.velocity.y = move_toward(father.velocity.y, 40, father.SKID_FRICTION * (father.velocity.y / 50))
+						father.wallslide_resistance = 2
+						father.jumpcount = 0
+					else:
+						father.wallslide_resistance = 4
+						father.jumpcount = 0
 	else:
 		father.current_state = father.States.Jump
 		father.wallsliding = false
@@ -417,17 +443,42 @@ func wallslide_script():
 
 @warning_ignore("unused_parameter")
 func _on_wall_l_body_entered(body: Node2D) -> void:
-	if father.is_on_wall() && father.midair == true && father.direction:
-		print("wallslide start left")
-		father.current_state = father.States.WallSlide
-		father.wallsliding = true
-		father.dir_opposite_to_wall = 1
+	if not father.attacking && not father.hurt:
+		if father.is_on_wall_only() && father.midair == true && father.direction.x:
+			if not body.is_in_group("OneWayCollisions"):
+				print("wallslide start left")
+				father.current_state = father.States.WallSlide
+				father.wallsliding = true
+				father.dir_opposite_to_wall = 1
 
 
 @warning_ignore("unused_parameter")
 func _on_wall_r_body_entered(body: Node2D) -> void:
-	if father.is_on_wall() && father.midair == true && father.direction:
-		print("wallslide start right")
-		father.current_state = father.States.WallSlide
-		father.wallsliding = true
-		father.dir_opposite_to_wall = -1
+	if not father.attacking && not father.hurt:
+		if father.is_on_wall_only() && father.midair == true && father.direction.x:
+			if body.is_in_group("OneWayCollisions") == false:
+				print("wallslide start right")
+				father.current_state = father.States.WallSlide
+				father.wallsliding = true
+				father.dir_opposite_to_wall = -1
+
+
+func activate_god_mode(enable : bool):
+	print("god_mode")
+	if enable:
+	
+		for element in get_tree().get_nodes_in_group("player_collisions"):
+			
+			if element is CollisionShape2D or element is CollisionPolygon2D:
+				element.set_deferred("disabled", true)
+			
+			god_mode_initialized = true
+	
+	else:
+	
+		for element in get_tree().get_nodes_in_group("player_collisions"):
+			
+			if element is CollisionShape2D or element is CollisionPolygon2D:
+				element.set_deferred("disabled", false)
+			
+			god_mode_initialized = true

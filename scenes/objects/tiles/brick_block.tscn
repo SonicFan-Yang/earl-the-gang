@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bc7jmdjxewn66" path="res://scripts/main/tiles/brick_block.gd" id="1_q8qyb"]
 [ext_resource type="Texture2D" uid="uid://bhlxujg81g4mf" path="res://sprites/tilesets/objects_smb1.png" id="2_8xdh1"]
+[ext_resource type="PackedScene" uid="uid://dicejf7vfrmny" path="res://scenes/misc/block_additives/BlockBounce.tscn" id="2_xf42d"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xf42d"]
 atlas = ExtResource("2_8xdh1")
@@ -13,12 +14,17 @@ size = Vector2(16, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c0jnj"]
 size = Vector2(16, 16)
 
-[node name="brick_block" type="AnimatableBody2D" unique_id=2130394528]
+[node name="brick_block" type="CharacterBody2D" unique_id=1446132149]
 collision_mask = 2
 script = ExtResource("1_q8qyb")
+hittable = true
+
+[node name="BlockBounce" parent="." unique_id=1020957802 node_paths=PackedStringArray("sprite") instance=ExtResource("2_xf42d")]
 breakable = 1
+sprite = NodePath("../sprite")
 
 [node name="sprite" type="Sprite2D" parent="." unique_id=89160224]
+z_index = 1
 texture = SubResource("AtlasTexture_xf42d")
 
 [node name="collision" type="CollisionShape2D" parent="." unique_id=1539432744]
@@ -26,6 +32,7 @@ shape = SubResource("RectangleShape2D_reatm")
 debug_color = Color(0.8435192, 0.7909371, 1, 0.41960785)
 
 [node name="hitbox" type="Area2D" parent="." unique_id=1877539158]
+z_index = 1
 collision_layer = 8
 collision_mask = 2
 

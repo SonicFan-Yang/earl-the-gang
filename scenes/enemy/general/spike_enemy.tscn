@@ -3,15 +3,6 @@
 [ext_resource type="Script" uid="uid://dqk5pf7ae3h2w" path="res://spike_enemy.gd" id="1_vnifk"]
 [ext_resource type="Texture2D" uid="uid://u2dgc2835ter" path="res://sprites/enemy/basic/enemy_spike.png" id="2_ypygt"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vnifk"]
-size = Vector2(15, 11)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_nss84"]
-size = Vector2(13, 13)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3n3r3"]
-size = Vector2(18, 18)
-
 [sub_resource type="Animation" id="Animation_afdby"]
 length = 0.001
 tracks/0/type = "value"
@@ -51,22 +42,37 @@ _data = {
 &"walk": SubResource("Animation_jgfc1")
 }
 
-[node name="spike_enemy" type="CharacterBody2D" unique_id=621978849 node_paths=PackedStringArray("sprite", "anim", "collision")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vnifk"]
+size = Vector2(21, 11)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nss84"]
+size = Vector2(13, 13)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3n3r3"]
+size = Vector2(18, 18)
+
+[node name="spike_enemy" type="CharacterBody2D" unique_id=621978849 node_paths=PackedStringArray("sprite", "anim", "collision", "cliff_detectors")]
 collision_layer = 4
 script = ExtResource("1_vnifk")
-SPEED = 40
+SPEED = 30
+can_be_stomped = false
+walks_off_edges = false
 sprite = NodePath("sprite")
 anim = NodePath("anim")
 collision = NodePath("collision")
+cliff_detectors = [NodePath("cliff_l"), NodePath("cliff_r")]
 
 [node name="sprite" type="Sprite2D" parent="." unique_id=1466555401]
 texture = ExtResource("2_ypygt")
 hframes = 2
 
+[node name="anim" type="AnimationPlayer" parent="." unique_id=1472564040]
+libraries/ = SubResource("AnimationLibrary_v7aan")
+
 [node name="wall" type="Area2D" parent="." unique_id=787937425]
 
 [node name="collision" type="CollisionShape2D" parent="wall" unique_id=2146822604]
-position = Vector2(-0.5, 4.5)
+position = Vector2(-1.5, 4.5)
 shape = SubResource("RectangleShape2D_vnifk")
 debug_color = Color(0, 1, 0, 0.41960785)
 
@@ -81,8 +87,18 @@ position = Vector2(-2, 2)
 shape = SubResource("RectangleShape2D_3n3r3")
 debug_color = Color(0.99607843, 0, 0, 0.41960785)
 
-[node name="anim" type="AnimationPlayer" parent="." unique_id=1472564040]
-libraries/ = SubResource("AnimationLibrary_v7aan")
+[node name="cliff_l" type="RayCast2D" parent="." unique_id=913656598]
+position = Vector2(-12, 11)
+target_position = Vector2(0, 2)
+
+[node name="cliff_r" type="RayCast2D" parent="." unique_id=563453084]
+position = Vector2(9, 11)
+target_position = Vector2(0, 2)
+
+[node name="screen_notif" type="VisibleOnScreenEnabler2D" parent="." unique_id=911712812]
+rect = Rect2(-25, -25, 50, 50)
+
+[node name="audio" type="AudioStreamPlayer2D" parent="." unique_id=1953732408]
 
 [connection signal="body_entered" from="wall" to="." method="_on_wall_body_entered"]
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]

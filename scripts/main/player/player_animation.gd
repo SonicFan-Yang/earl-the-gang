@@ -46,7 +46,10 @@ func animation(direction):
 					
 					father.sprite.flip_h = (father.facing < 0)
 					father.anim.speed_scale = 1
-					father.anim.play("idle")
+					if father.direction.y <= 0:
+						father.anim.play("idle")
+					else:
+						father.anim.play("crouch")
 					
 			else:
 				father.anim.speed_scale = 1
@@ -55,7 +58,7 @@ func animation(direction):
 				
 					father.sprite.flip_v = false
 					
-					if father.wallslide_resistance == 0:
+					if !father.wallsliding:
 				
 						if father.jumping == true:
 							
@@ -68,15 +71,16 @@ func animation(direction):
 									father.anim.play("doublejumpstart")
 							
 						elif father.falling == true:
+							print(father.jumpcount, ", ", father.hovering)
 							if father.hovering == false:
-								if father.jumpcount <= 1:
+								if father.jumpcount <= 1 or father.jumpcount == 3:
 									father.anim.play("fall")
 							else:
 								father.anim.play("hover")
 					
 					else:
-						
-						father.anim.play("skid")
+						father.sprite.flip_h = (direction < 0)
+						father.anim.play("wallslide")
 			
 				else:
 					

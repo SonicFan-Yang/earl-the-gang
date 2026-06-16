@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://crig4v2p4lefk" path="res://scripts/main/title_screen.gd" id="1_hn2w6"]
 [ext_resource type="Theme" uid="uid://fnlbtxvynoxf" path="res://resourses/font/hudfont.tres" id="1_xsp5y"]
 [ext_resource type="Script" uid="uid://b06ufv5um0nmi" path="res://scenes/misc/remap_window.gd" id="3_6kkck"]
+[ext_resource type="Texture2D" uid="uid://c6gaqcm1l31y6" path="res://sprites/misc/levels/misc/error/error.png" id="3_8453e"]
+[ext_resource type="Texture2D" uid="uid://b3qqoaqcucaw0" path="res://sprites/misc/FUCKYOU.png" id="4_cddka"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hn2w6"]
 load_path = "res://.godot/imported/earlspin.png-fbb241db4bca89fd792a9e5d1b0cc92f.ctex"
@@ -12,7 +14,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("spin:frame")
+tracks/0/path = NodePath("non-keyb/spin:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -30,7 +32,7 @@ step = 0.125
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("spin:frame")
+tracks/0/path = NodePath("non-keyb/spin:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -46,10 +48,52 @@ _data = {
 &"spin": SubResource("Animation_mr1mw")
 }
 
+[sub_resource type="Animation" id="Animation_oq6sn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Fuckyou:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_exvsg"]
+resource_name = "efsf"
+length = 0.8
+loop_mode = 1
+step = 0.0333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Fuckyou:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 1), Color(1, 0.53333336, 0, 1), Color(1, 1, 0, 1), Color(0, 1, 0, 1), Color(0, 1, 1, 1), Color(0, 0, 1, 1), Color(0.5137255, 0, 1, 1), Color(1, 0, 1, 1), Color(1, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hl4bf"]
+_data = {
+&"RESET": SubResource("Animation_oq6sn"),
+&"efsf": SubResource("Animation_exvsg")
+}
+
 [node name="title_screen" type="Node2D" unique_id=709485519]
 script = ExtResource("1_hn2w6")
 
-[node name="text" type="RichTextLabel" parent="." unique_id=1139380294]
+[node name="non-keyb" type="Node2D" parent="." unique_id=252749399]
+visible = false
+
+[node name="text" type="RichTextLabel" parent="non-keyb" unique_id=1139380294]
 offset_left = -13.0
 offset_top = 144.0
 offset_right = 321.0
@@ -60,22 +104,72 @@ theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 text = "Earl Game"
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="." unique_id=40083037]
+[node name="RichTextLabel2" type="RichTextLabel" parent="non-keyb" unique_id=40083037]
 offset_right = 48.0
 offset_bottom = 94.0
 text = "has lotsa bugs"
 
-[node name="spin" type="Sprite2D" parent="." unique_id=1501909021]
+[node name="spin" type="Sprite2D" parent="non-keyb" unique_id=1501909021]
 position = Vector2(104.00001, 49.999996)
-rotation = 0.21424092
+rotation = 0.21424094
 scale = Vector2(7.0789475, 5.75)
 texture = SubResource("CompressedTexture2D_hn2w6")
 hframes = 8
 
-[node name="anim" type="AnimationPlayer" parent="." unique_id=1329624552]
+[node name="anim" type="AnimationPlayer" parent="non-keyb" unique_id=1329624552]
+root_node = NodePath("../..")
 libraries/ = SubResource("AnimationLibrary_8453e")
 autoplay = &"spin"
 speed_scale = 2.0
+
+[node name="keyb" type="Node2D" parent="." unique_id=227779717]
+
+[node name="Error" type="Sprite2D" parent="keyb" unique_id=1875750865]
+position = Vector2(284, 139)
+texture = ExtResource("3_8453e")
+
+[node name="Error2" type="Sprite2D" parent="keyb" unique_id=1528227203]
+position = Vector2(37, -25)
+texture = ExtResource("3_8453e")
+
+[node name="Error3" type="Sprite2D" parent="keyb/Error2" unique_id=1013120092]
+position = Vector2(0, 240)
+texture = ExtResource("3_8453e")
+
+[node name="Fuckyou" type="Sprite2D" parent="keyb" unique_id=1301146532]
+position = Vector2(102.99999, 8.312499)
+scale = Vector2(1.4411765, 0.55147076)
+texture = ExtResource("4_cddka")
+
+[node name="anim" type="AnimationPlayer" parent="keyb" unique_id=1492981983]
+libraries/ = SubResource("AnimationLibrary_hl4bf")
+autoplay = &"efsf"
+speed_scale = 0.125
+
+[node name="RichTextLabel" type="RichTextLabel" parent="keyb" unique_id=1256262769]
+offset_left = 39.0
+offset_top = 133.0
+offset_right = 259.0
+offset_bottom = 173.0
+theme = ExtResource("1_xsp5y")
+text = "01000110 01010101 01000011 01001011 00100000 01011001 01001111 01010101"
+scroll_active = false
+autowrap_mode = 2
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="keyb" unique_id=2131890954]
+offset_left = 29.0
+offset_top = 24.0
+offset_right = 245.0
+offset_bottom = 56.0
+text = ". -. .--- --- -.-- / - .... . / -.. . -- ---"
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="keyb" unique_id=1288616619]
+offset_left = 96.0
+offset_top = 74.0
+offset_right = 197.0
+offset_bottom = 114.0
+theme = ExtResource("1_xsp5y")
+text = "Earl Alpha"
 
 [node name="remap_button" type="Button" parent="." unique_id=912714847]
 offset_left = 129.0
@@ -86,12 +180,10 @@ toggle_mode = true
 text = "remap buttons"
 
 [node name="remap_txt" type="RichTextLabel" parent="." unique_id=911581915]
-visible = false
 offset_left = 5.0
 offset_top = 178.0
 offset_right = 251.0
 offset_bottom = 233.0
-text = "remap [keu]"
 
 [node name="Window" type="Window" parent="." unique_id=352809597]
 oversampling_override = 1.0

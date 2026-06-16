@@ -9,7 +9,7 @@ enum level_type {overworld, underground, underwater, sky, castle}
 var level_file_location : String = " "
 
 @export var LevelMusic : AudioStreamMP3
-@export var music : AudioStreamPlayer2D
+@export var change_lvl_music : bool = true
 
 var camera : Camera2D
 
@@ -27,11 +27,28 @@ var camera : Camera2D
 @export var limit_u : int = -10000000
 @export var limit_d : int = 10000000
 
+@export var create_left_wall := true
+var left_wall = StaticBody2D.new()
+var left_coll = CollisionShape2D.new()
+var l_n_r_shape = RectangleShape2D.new()
+
 func _ready():
+	#left wall creation
+	if create_left_wall == true:
 	
-	if LevelMusic && music:
-		music.stream = LevelMusic
-		music.play()
+		l_n_r_shape.size = Vector2(100, abs(limit_u) + abs(limit_d))
+		left_coll.shape = l_n_r_shape
+		
+		@warning_ignore("integer_division")
+		left_wall.position = Vector2(limit_l - 50, (limit_u + limit_d) / 2)
+		
+		left_wall.add_child(left_coll)
+		add_child(left_wall)
+	
+	
+	if LevelMusic && change_lvl_music:
+		ConstantMusic.stream = LevelMusic
+		ConstantMusic.play()
 	
 	if GlobalVariable.SCENE_LOADED == true:
 		player_spawner.hide()

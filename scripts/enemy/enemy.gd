@@ -15,6 +15,8 @@ enum EnemyBehaviours {
 var enemy_hit_sfx = preload("res://audio/sound effects/main/player/enemy_hit.mp3")
 
 var directionX = 0
+var Gravity = PlayerScript.GRAVITY
+var dead_Gravity = PlayerScript.GRAVITY / 2
 
 @export var SPEED := 20
 @export var spawn_facing := SpawnDir.Left
@@ -31,6 +33,7 @@ var directionX = 0
 @export var anim : AnimationPlayer
 @export var collision : CollisionShape2D
 @export var cliff_detectors : Array[RayCast2D]
+@export var audio : AudioStreamPlayer2D
 
 @export_category("Base Animation Names")
 
@@ -38,27 +41,39 @@ var directionX = 0
 @export var death_animation := "death"
 
 var dead := false
+var player_facing := 0
+
+var death_noise := preload("res://audio/sound effects/enemy/bonk-cartoon.mp3")
 
 func  _ready() -> void:
 	directionX = spawn_facing
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor() && effected_by_gravity == true:
-		velocity.y += PlayerScript.GRAVITY
+		velocity.y += Gravity
 	
 	if !dead:
 	
 		if flip_sprite_to_direction == true:
 			sprite.flip_h = (directionX != 1)
 		
-		velocity.x = directionX * SPEED
+		if !dead:
+			velocity.x = (directionX * SPEED)
 		
 		if !walks_off_edges:
 			if cliff_detectors.size() >= 0:
 				if !cliff_detectors[0].is_colliding():
-					directionX = 1
+					if cliff_detectors[1].is_colliding():
+						directionX = 1
 				elif !cliff_detectors[1].is_colliding():
-					directionX = -1
+					if cliff_detectors[0].is_colliding():
+						directionX = -1
+		
+	else:
+		
+		sprite.flip_h = (velocity.x / -velocity.x == -1)
+		velocity.x = (300 * player_facing) / 2.0
+		print(velocity.x, -velocity.x)
 	
 	animation()
 	move_and_slide()
@@ -73,6 +88,8 @@ func enemy_hit(area):
 	var touching = area.owner
 	print(area)
 	if touching is Player:
+		player_facing = touching.facing
+		
 		if (area == touching.interaction_point[1] && PlayerScript.velocity.y > 0) && can_be_stomped == true:
 			
 			dead = true
@@ -82,7 +99,10 @@ func enemy_hit(area):
 			
 			dead = true
 			collision.set_deferred("disabled", true)
-			velocity = Vector2(200 * touching.facing, -200)
+			Gravity = dead_Gravity
+			velocity = Vector2(300 * player_facing, -220)
+			audio.stream = death_noise
+			audio.play()
 			
 		elif hurts_player == true:
 			touching.movement_node.hit_send()

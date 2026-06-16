@@ -17,5 +17,5 @@ func _on_remap_button_toggled(toggled_on: bool) -> void:
 
 func _on_button_button_up() -> void:
 	print("start_button")
-	GameMaster.set_scene("res://scenes/levels/misc./troll_level/troll_2_4_26_r1.tscn", false)
+	get_tree().change_scene_to_file("res://scenes/levels/world 1/1_1.tscn")
 	queue_free()

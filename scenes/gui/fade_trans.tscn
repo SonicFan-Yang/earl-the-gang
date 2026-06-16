@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://c74jfvvtpp5mp"]
+
+[ext_resource type="Script" uid="uid://b7sl1ga3uusi" path="res://scripts/gui/fade_trans.gd" id="1_fq84e"]
+
+[sub_resource type="Animation" id="Animation_1nb4t"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_fq84e"]
+resource_name = "fade_in"
+length = 0.33333635
+step = 0.0333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("fade_trans:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.33333334),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_3aors"]
+resource_name = "fade_iout"
+length = 0.33333635
+step = 0.0333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("fade_trans:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.33333334),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oja8d"]
+_data = {
+&"RESET": SubResource("Animation_1nb4t"),
+&"fade_in": SubResource("Animation_fq84e"),
+&"fade_iout": SubResource("Animation_3aors")
+}
+
+[node name="fade_trans" type="CanvasLayer" unique_id=187972906]
+process_mode = 3
+script = ExtResource("1_fq84e")
+
+[node name="fade_trans" type="ColorRect" parent="." unique_id=578084443]
+offset_left = -51.0
+offset_top = -19.0
+offset_right = 304.0
+offset_bottom = 264.0
+focus_behavior_recursive = 1
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="anim" type="AnimationPlayer" parent="." unique_id=696548471]
+libraries/ = SubResource("AnimationLibrary_oja8d")
+autoplay = &"RESET"

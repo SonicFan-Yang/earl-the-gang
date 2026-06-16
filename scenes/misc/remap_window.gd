@@ -24,24 +24,31 @@ func _unhandled_input(event: InputEvent) -> void:
 				"up":
 					InputMap.action_erase_events("ui_up")
 					InputMap.action_add_event("ui_up", event)
+					print(InputMap.action_get_events("ui_up"))
 				"down":
 					InputMap.action_erase_events("ui_down")
 					InputMap.action_add_event("ui_down", event)
+					print(InputMap.action_get_events("ui_down"))
 				"left":
 					InputMap.action_erase_events("ui_left")
 					InputMap.action_add_event("ui_left", event)
+					print(InputMap.action_get_events("ui_left"))
 				"right":
 					InputMap.action_erase_events("ui_right")
 					InputMap.action_add_event("ui_right", event)
+					print(InputMap.action_get_events("ui_right"))
 				"jump":
 					InputMap.action_erase_events("ui_accept")
 					InputMap.action_add_event("ui_accept", event)
+					print(InputMap.action_get_events("ui_accept"))
 				"attack":
 					InputMap.action_erase_events("ui_cancel")
 					InputMap.action_add_event("ui_cancel", event)
+					print(InputMap.action_get_events("ui_cancel"))
 				"run":
 					InputMap.action_erase_events("ui_select")
 					InputMap.action_add_event("ui_select", event)
+					print(InputMap.action_get_events("ui_select"))
 			
 			for button : Button in get_children():
 				button.focus_mode = button.FocusMode.FOCUS_ALL
@@ -49,6 +56,36 @@ func _unhandled_input(event: InputEvent) -> void:
 			gui_get_focus_owner().button_pressed = false
 		
 		if event is InputEventJoypadButton:
+			
+			match gui_get_focus_owner().name:
+				"up":
+					InputMap.action_erase_events("ui_up")
+					InputMap.action_add_event("ui_up", event)
+					print(InputMap.action_get_events("ui_up"))
+				"down":
+					InputMap.action_erase_events("ui_down")
+					InputMap.action_add_event("ui_down", event)
+					print(InputMap.action_get_events("ui_down"))
+				"left":
+					InputMap.action_erase_events("ui_left")
+					InputMap.action_add_event("ui_left", event)
+					print(InputMap.action_get_events("ui_left"))
+				"right":
+					InputMap.action_erase_events("ui_right")
+					InputMap.action_add_event("ui_right", event)
+					print(InputMap.action_get_events("ui_right"))
+				"jump":
+					InputMap.action_erase_events("ui_accept")
+					InputMap.action_add_event("ui_accept", event)
+					print(InputMap.action_get_events("ui_accept"))
+				"attack":
+					InputMap.action_erase_events("ui_cancel")
+					InputMap.action_add_event("ui_cancel", event)
+					print(InputMap.action_get_events("ui_cancel"))
+				"run":
+					InputMap.action_erase_events("ui_select")
+					InputMap.action_add_event("ui_select", event)
+					print(InputMap.action_get_events("ui_select"))
 			
 			gui_get_focus_owner().text = gui_get_focus_owner().name + "= " + event.as_text()
 			for button : Button in get_children():
@@ -64,24 +101,31 @@ func _unhandled_input(event: InputEvent) -> void:
 				"up":
 					InputMap.action_erase_events("ui_up")
 					InputMap.action_add_event("ui_up", event)
+					print(InputMap.action_get_events("ui_up"))
 				"down":
 					InputMap.action_erase_events("ui_down")
 					InputMap.action_add_event("ui_down", event)
+					print(InputMap.action_get_events("ui_down"))
 				"left":
 					InputMap.action_erase_events("ui_left")
 					InputMap.action_add_event("ui_left", event)
+					print(InputMap.action_get_events("ui_left"))
 				"right":
 					InputMap.action_erase_events("ui_right")
 					InputMap.action_add_event("ui_right", event)
+					print(InputMap.action_get_events("ui_right"))
 				"jump":
 					InputMap.action_erase_events("ui_accept")
 					InputMap.action_add_event("ui_accept", event)
+					print(InputMap.action_get_events("ui_accept"))
 				"attack":
 					InputMap.action_erase_events("ui_cancel")
 					InputMap.action_add_event("ui_cancel", event)
+					print(InputMap.action_get_events("ui_cancel"))
 				"run":
 					InputMap.action_erase_events("ui_select")
 					InputMap.action_add_event("ui_select", event)
+					print(InputMap.action_get_events("ui_select"))
 			
 			gui_get_focus_owner().text = gui_get_focus_owner().name + "= " + event.as_text_key_label()
 			for button : Button in get_children():

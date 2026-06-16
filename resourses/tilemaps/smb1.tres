@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://3kq6jmhcx6r" path="res://scenes/enemy/goomba.tscn" id="2_m10hm"]
 [ext_resource type="PackedScene" uid="uid://bxgf5jef0g53a" path="res://scenes/objects/tiles/questionblock.tscn" id="3_apjdu"]
 [ext_resource type="Texture2D" uid="uid://du0nd6rm46snt" path="res://sprites/tilesets/placeholder_water.png" id="4_5vt13"]
+[ext_resource type="PackedScene" uid="uid://brj4whb4r2cv2" path="res://scenes/objects/tiles/brick_block.tscn" id="4_gb27g"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_r6hbx"]
 polygon = PackedVector2Array(-8, 8, 8, 8, 8, 9, -8, 9)
@@ -103,6 +104,7 @@ separation = Vector2i(1, 1)
 2:0/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_gb27g")
 3:0/0 = 0
 3:0/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_dqfv8")
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 3:1/0 = 0
 3:2/0 = 0
 3:3/0 = 0
@@ -204,6 +206,7 @@ scenes/1/scene = ExtResource("2_m10hm")
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_5vt13"]
 resource_name = "tiles"
 scenes/1/scene = ExtResource("3_apjdu")
+scenes/2/scene = ExtResource("4_gb27g")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gb27g"]
 texture = ExtResource("4_5vt13")

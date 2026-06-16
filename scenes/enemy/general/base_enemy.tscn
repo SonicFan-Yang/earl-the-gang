@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://d16vgbbairc8j"]
+
+[ext_resource type="Script" uid="uid://dnourfd7bi37l" path="res://scripts/enemy/enemy.gd" id="1_3s0p2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3s0p2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ktwv2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_88uhj"]
+
+[node name="base_enemy" type="CharacterBody2D" unique_id=2042563991 node_paths=PackedStringArray("collision", "cliff_detectors")]
+script = ExtResource("1_3s0p2")
+collision = NodePath("collision")
+cliff_detectors = [NodePath("cliff_l"), NodePath("cliff_r")]
+
+[node name="audio" type="AudioStreamPlayer2D" parent="." unique_id=158806658]
+
+[node name="wall" type="Area2D" parent="." unique_id=1903635048]
+
+[node name="hitbox" type="CollisionShape2D" parent="wall" unique_id=659564389]
+shape = SubResource("RectangleShape2D_3s0p2")
+debug_color = Color(0, 1, 0, 0.41960785)
+
+[node name="collision" type="CollisionShape2D" parent="." unique_id=1753099644]
+shape = SubResource("RectangleShape2D_ktwv2")
+
+[node name="hitbox" type="Area2D" parent="." unique_id=40606409]
+collision_layer = 4
+collision_mask = 2
+
+[node name="hitbox" type="CollisionShape2D" parent="hitbox" unique_id=1316635214]
+shape = SubResource("RectangleShape2D_88uhj")
+debug_color = Color(1, 0, 0, 0.41960785)
+
+[node name="cliff_l" type="RayCast2D" parent="." unique_id=1949740279]
+position = Vector2(-9, 8)
+target_position = Vector2(0, 2)
+
+[node name="cliff_r" type="RayCast2D" parent="." unique_id=2140307280]
+position = Vector2(9, 8)
+target_position = Vector2(0, 2)
+
+[node name="screen_notif" type="VisibleOnScreenEnabler2D" parent="." unique_id=859679655]
+rect = Rect2(-25, -25, 50, 50)
