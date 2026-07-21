@@ -1,3 +1,4 @@
+@tool
 extends Enemy
 
 func _ready() -> void:

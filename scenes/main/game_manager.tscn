@@ -1,6 +1,26 @@
 [gd_scene format=3 uid="uid://bmj7ounedrb81"]
 
 [ext_resource type="Script" uid="uid://gvx0gr6l1qb5" path="res://scripts/main/game_manager.gd" id="1_fl4gn"]
+[ext_resource type="Texture2D" uid="uid://mgn0im774btp" path="res://sprites/concepts/smiledoodle.png" id="2_ruk2n"]
 
 [node name="GameManager" type="Node2D" unique_id=299809022]
 script = ExtResource("1_fl4gn")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=708174706]
+offset_right = 256.0
+offset_bottom = 240.0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1538969080]
+transparent_bg = true
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+size = Vector2i(256, 240)
+size_2d_override = Vector2i(256, 240)
+render_target_update_mode = 4
+
+[node name="hi-res_test" type="Sprite2D" parent="." unique_id=506751579]
+visible = false
+position = Vector2(131, 113)
+scale = Vector2(0.29123712, 0.29531723)
+texture = ExtResource("2_ruk2n")

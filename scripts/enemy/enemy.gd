@@ -1,3 +1,4 @@
+@tool
 extends CharacterBody2D
 class_name Enemy
 
@@ -49,34 +50,39 @@ func  _ready() -> void:
 	directionX = spawn_facing
 
 func _physics_process(delta: float) -> void:
-	if not is_on_floor() && effected_by_gravity == true:
-		velocity.y += Gravity
-	
-	if !dead:
-	
-		if flip_sprite_to_direction == true:
-			sprite.flip_h = (directionX != 1)
+	if not Engine.is_editor_hint():
+		
+		if not is_on_floor() && effected_by_gravity == true:
+			velocity.y += Gravity
 		
 		if !dead:
-			velocity.x = (directionX * SPEED)
 		
-		if !walks_off_edges:
-			if cliff_detectors.size() >= 0:
-				if !cliff_detectors[0].is_colliding():
-					if cliff_detectors[1].is_colliding():
-						directionX = 1
-				elif !cliff_detectors[1].is_colliding():
-					if cliff_detectors[0].is_colliding():
-						directionX = -1
+			if flip_sprite_to_direction == true:
+				sprite.flip_h = (directionX != 1)
+			
+			if !dead:
+				velocity.x = (directionX * SPEED)
+			
+			if !walks_off_edges:
+				if cliff_detectors.size() >= 0:
+					if !cliff_detectors[0].is_colliding():
+						if cliff_detectors[1].is_colliding():
+							directionX = 1
+					elif !cliff_detectors[1].is_colliding():
+						if cliff_detectors[0].is_colliding():
+							directionX = -1
+			
+		else:
+			
+			velocity.x = (300 * player_facing) / 2.0
+			sprite.flip_h = (velocity.x / abs(velocity.x) == -1)
 		
+		animation()
+		move_and_slide()
+	
 	else:
 		
-		sprite.flip_h = (velocity.x / -velocity.x == -1)
-		velocity.x = (300 * player_facing) / 2.0
-		print(velocity.x, -velocity.x)
-	
-	animation()
-	move_and_slide()
+		sprite.flip_h = (spawn_facing == SpawnDir.Left)
 
 func animation():
 	if dead == false:

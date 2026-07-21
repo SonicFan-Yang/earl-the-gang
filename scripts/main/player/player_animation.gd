@@ -71,7 +71,7 @@ func animation(direction):
 									father.anim.play("doublejumpstart")
 							
 						elif father.falling == true:
-							print(father.jumpcount, ", ", father.hovering)
+							#print(father.jumpcount, ", ", father.hovering)
 							if father.hovering == false:
 								if father.jumpcount <= 1 or father.jumpcount == 3:
 									father.anim.play("fall")

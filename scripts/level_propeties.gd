@@ -68,7 +68,7 @@ func _ready():
 		GameMaster.camera.limit_top = limit_u
 		GameMaster.camera.limit_bottom = limit_d
 
-		GameMaster.add_child(GameMaster.player)
+		GameMaster.subviewport.add_child(GameMaster.player)
 		GameMaster.player.add_child(GameMaster.camera)
 
 		#GameMaster.ysort_node.remove_child(GameMaster.old_ysort_node)
@@ -77,5 +77,6 @@ func _ready():
 			#node.emit_signal("ready")
 		
 		GlobalVariable.SCENE_LOADED = false
+		DisplayServer.window_set_title(LevelName)
 		level_file_location = scene_file_path.trim_suffix(name + ".tscn")
 		print(scene_file_path, ", ", level_file_location, ", ", name)

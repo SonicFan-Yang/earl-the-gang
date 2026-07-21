@@ -17,5 +17,5 @@ func _on_remap_button_toggled(toggled_on: bool) -> void:
 
 func _on_button_button_up() -> void:
 	print("start_button")
-	get_tree().change_scene_to_file("res://scenes/levels/world 1/1_1.tscn")
+	get_tree().change_scene_to_file("res://scenes/levels/misc./level_sel.tscn")
 	queue_free()

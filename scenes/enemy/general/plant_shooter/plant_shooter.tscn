@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://dqddf4i745him"]
+
+[ext_resource type="Texture2D" uid="uid://pv5xe7iqa0m1" path="res://sprites/enemy/basic/placeholder_plantshooterguy.png" id="1_d0305"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vc6l4"]
+atlas = ExtResource("1_d0305")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bg03f"]
+atlas = ExtResource("1_d0305")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d0305"]
+size = Vector2(2, 2)
+
+[node name="plant_shooter" type="Node2D" unique_id=283767838]
+
+[node name="|" type="Sprite2D" parent="." unique_id=142165960]
+texture = SubResource("AtlasTexture_vc6l4")
+offset = Vector2(0, -8)
+
+[node name="plant_shooter_head" type="CharacterBody2D" parent="." unique_id=1996767475]
+collision_layer = 4
+collision_mask = 2
+
+[node name="head" type="Sprite2D" parent="plant_shooter_head" unique_id=1304768841]
+position = Vector2(0, -15)
+texture = SubResource("AtlasTexture_bg03f")
+offset = Vector2(7, 0)
+
+[node name="hitbox" type="Area2D" parent="plant_shooter_head" unique_id=176308710]
+
+[node name="col" type="CollisionPolygon2D" parent="plant_shooter_head/hitbox" unique_id=604946039]
+position = Vector2(8.725598, -15)
+polygon = PackedVector2Array(-9.725598, -1, -2.7255986, -6, 3.2744014, -8, 6.2744017, -8, 6.2744017, 8, 3.2744014, 8, -2.7255986, 6, -9.725598, 1)
+
+[node name="dummy" type="CollisionShape2D" parent="plant_shooter_head" unique_id=596980756]
+position = Vector2(0, -15)
+shape = SubResource("RectangleShape2D_d0305")
+disabled = true
+
+[node name="marker" type="Marker2D" parent="plant_shooter_head" unique_id=1069518982]
+position = Vector2(2, -15)

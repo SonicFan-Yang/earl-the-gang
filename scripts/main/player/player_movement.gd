@@ -48,32 +48,8 @@ func movement(_delta):
 			
 			grav_script(2)
 			move_script()
+			jump_script()
 			
-			if Input.is_action_just_released(father.jump_key):
-		
-				father.bouncemultiplier = 0
-				father.hovering = false
-				if father.jumpcount == 4:
-					father.jumpcount = 3
-				
-				if hover_sound_played == true:
-					father.audio.stop()
-					hover_sound_played = false
-				
-				if father.jumpcount <= 1:
-					father.P_GRAVITY = father.grav
-				
-				#if father.hovering:
-					#father.jumpcount = 5
-			
-			else:
-				
-				if hover_sound_played == true:
-					father.audio.stop()
-					hover_sound_played = false
-				
-				father.hovering = false
-				father.current_state = father.States.Fall
 		
 		elif father.current_state == father.States.WallSlide:
 			
@@ -95,37 +71,38 @@ func movement(_delta):
 
 
 func move_script():
+	if !father.attacking:
 	
-	father.direction.x = Input.get_axis("ui_left", "ui_right")
-	father.direction.y = Input.get_axis("ui_up", "ui_down")
-	#print(father.attacking)
-	
-	father.attack_areas.scale.x = father.facing
-	
-	if abs(father.direction.x) == 1:
-		father.facing = int(father.direction.x)
-	#print((father.velocity.x >= 0 && father.direction.x == -1 || father.velocity.x <= 0 && father.direction.x == 1))
-	
-	if wallslide_check():
-		for element in father.interaction_point[5].get_overlapping_bodies():
-			if not element.is_in_group("OneWayCollisions"):
-				father.wallsliding = true
-				father.current_state = father.States.WallSlide
-	else:
-		father.wallsliding = false
-		father.wallslide_resistance = 0
-	
-	if father.interaction_point[6].has_overlapping_bodies():
-		father.dir_opposite_to_wall = 1
-	elif father.interaction_point[7].has_overlapping_bodies():
-		father.dir_opposite_to_wall = -1
+		father.direction.x = Input.get_axis("ui_left", "ui_right")
+		father.direction.y = Input.get_axis("ui_up", "ui_down")
+		#print(father.attacking)
+		
+		father.attack_areas.scale.x = father.facing
+		
+		if abs(father.direction.x) == 1:
+			father.facing = int(father.direction.x)
+		#print((father.velocity.x >= 0 && father.direction.x == -1 || father.velocity.x <= 0 && father.direction.x == 1))
+		
+		if wallslide_check():
+			for element in father.interaction_point[5].get_overlapping_bodies():
+				if not element.is_in_group("OneWayCollisions"):
+					father.wallsliding = true
+					father.current_state = father.States.WallSlide
+		else:
+			father.wallsliding = false
+			father.wallslide_resistance = 0
+		
+		if father.interaction_point[6].has_overlapping_bodies():
+			father.dir_opposite_to_wall = 1
+		elif father.interaction_point[7].has_overlapping_bodies():
+			father.dir_opposite_to_wall = -1
 
-	#print(father.dir_opposite_to_wall)
-	
-	run_script()
-	
-	#jump_script()
-			
+		#print(father.dir_opposite_to_wall)
+		
+		run_script()
+		
+		#jump_script()
+				
 	if father.is_on_floor():
 		if (father.velocity.x >= 0 && father.direction.x == -1 || father.velocity.x <= 0 && father.direction.x == 1):
 			
@@ -147,26 +124,31 @@ func move_script():
 	
 	#print(father.is_on_floor(), father.direction.x == 0, (father.velocity.x >= 0 && father.direction.x == -1 || father.velocity.x <= 0 && father.direction.x == 1))
 	
-	if father.attacking == false:
+	
+	print(father.hovering == true)
+	
+	if father.attacking == false and father.hovering == false:
 		father.velocity.x = clamp(father.velocity.x, -father.MAX_SPEED, father.MAX_SPEED)
 
 
 func run_script():
 	if Input.is_action_pressed(father.run_key):
 		father.skidding = false
-		father.SPEED = 5.0
-		father.MAX_SPEED = 200.0
+		father.MAX_SPEED = 250.0
 		father.velocity.x += father.direction.x * father.SPEED
-		if abs(father.velocity.x) >= 130:
+		if abs(father.velocity.x) >= 150:
 			
+			father.SPEED = 5
 			father.running = 2
 			
-		elif abs(father.velocity.x) >= 20:
+		elif abs(father.velocity.x) >= 50:
 			
+			father.SPEED = 3
 			father.running = 1
 			
 		else:
 			
+			father.SPEED = father.WALK_SPEED
 			father.running = 0
 	else:
 		
@@ -210,6 +192,7 @@ func jump_script(is_walljump : bool = false):
 						father.audio.stream = father.jump_sound_small
 						
 				elif father.jumpcount == 1:
+					father.attacking = false
 					jump(father.DOUBJUMPVEL)
 					father.audio.stream = father.jump_2_sound
 				
@@ -220,6 +203,7 @@ func jump_script(is_walljump : bool = false):
 		if father.velocity.y >= 0:
 			
 			if father.jumpcount >= 2:
+				father.attacking = false
 				father.hovering = true
 				father.jumpcount = 4
 				father.P_GRAVITY = father.hover_grav

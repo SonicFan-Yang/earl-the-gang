@@ -80,9 +80,12 @@ anim = NodePath("anim")
 collision = NodePath("collision")
 cliff_detectors = [NodePath("cliff_l"), NodePath("cliff_r")]
 audio = NodePath("audio")
+walk_animation = ""
+death_animation = ""
 
 [node name="sprite" type="Sprite2D" parent="." unique_id=1319996658]
 texture = ExtResource("1_j55x4")
+flip_h = true
 hframes = 3
 
 [node name="anim" type="AnimationPlayer" parent="." unique_id=1231586837]

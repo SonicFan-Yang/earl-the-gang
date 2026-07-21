@@ -2,6 +2,7 @@ extends Node2D
 class_name Game_Master
 
 var gamemaster : Node2D = self
+@onready var subviewport : SubViewport = $SubViewportContainer/SubViewport
 
 var current_scene : Node2D
 var error_scene = preload("res://scenes/levels/misc./error.tscn").instantiate()
@@ -17,11 +18,12 @@ signal unfade_start
 
 func _ready() -> void:
 	gamemaster = self
+	subviewport = $SubViewportContainer/SubViewport
 
 func _process(_delta: float) -> void:
-	if get_child_count() > 0:
-		if get_child(0) is Node2D:
-			current_scene = get_child(0)
+	if subviewport.get_child_count() > 0:
+		if subviewport.get_child(0) is Node2D:
+			current_scene = subviewport.get_child(0)
 			#print(current_scene)
 	else:
 		current_scene = error_scene
@@ -42,7 +44,7 @@ func set_scene(new_scene : String, delete_room : bool = true, keep_player : bool
 		#print(sceneinitialised)
 		
 		if current_scene != error_scene:
-			current_scene = get_child(0)
+			current_scene = subviewport.get_child(0)
 			prev_scene_name = current_scene.name
 			#(prev_scene_name)
 		
@@ -58,8 +60,9 @@ func set_scene(new_scene : String, delete_room : bool = true, keep_player : bool
 			sceneinitialised.name = prev_scene_name
 		
 		player.modulate = Color(1.0, 1.0, 1.0, 1.0)
-		add_child(sceneinitialised)
-		move_child(sceneinitialised, 0)
+		subviewport.add_child(sceneinitialised)
+		subviewport.move_child(sceneinitialised, 0)
+		print(subviewport, " ", subviewport.get_children())
 		
 		unfade_start.emit()
 		GlobalVariable.if_pause_n_unpause(false)
